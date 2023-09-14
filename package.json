@@ -1,0 +1,22 @@
+{
+  "name": "zip-pack",
+  "version": "1.0.0",
+  "description": "用于指定目录压缩为.zip包",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silin001/zip-pack"
+  },
+  "keywords": [
+    "zip-pack",
+    "zip"
+  ],
+  "author": "sisi",
+  "license": "ISC",
+  "devDependencies": {
+    "archiver": "^6.0.1"
+  }
+}
