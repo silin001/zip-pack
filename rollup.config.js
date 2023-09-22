@@ -1,5 +1,3 @@
-// 模拟这些变量和 API，以便于在浏览器环境中使用。
-import nodePolyfills from 'rollup-plugin-node-polyfills';
 import resolve from '@rollup/plugin-node-resolve'; // 依赖引用插件
 import commonjs from 'rollup-plugin-commonjs'; // commonjs模块转换插件
 // import typescript from '@rollup/plugin-typescript';  // 让 rollup 认识 ts 的代码
@@ -34,13 +32,8 @@ export default {
     // },
   ],
   plugins: [
-    resolve({
-      browser: true,
-      dedupe: ['path']
-    }),
-    // resolve(),
+    resolve(),
     commonjs(),
-    nodePolyfills(),
     // typescript()
     babel({
       exclude: 'node_modules/**',

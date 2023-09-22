@@ -1,6 +1,6 @@
 {
   "name": "plugin-zip-pack",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "用于压缩打包完毕的目录资源为.zip包",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
@@ -29,8 +29,5 @@
     "rollup": "2.45.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0"
-  },
-  "dependencies": {
-    "rollup-plugin-node-polyfills": "^0.2.1"
   }
 }
