@@ -1,17 +1,23 @@
 # 说明
-zip-pack 将指定文件夹打包为.zip包
+
+`plugin-zip-pack` 将指定文件夹打包为.zip 包
 
 # 安装
-`npm install zip-pack -D`
+
+`npm install plugin-zip-pack -D`
 
 # 使用
-// vite.config.ts
 
 ```javascript
-const { dirToZipFun } = require('zip-pack')
+// vite.config.ts
+import { pluginPackZip } from "plugin-zip-pack";
+
 export default defineConfig({
-    plugins: [
-        dirToZipFun('测试打包','src')
-    ]
+  plugins: [
+    pluginPackZip(),
+    // pluginPackZip({
+    //   optZipName: '测试包'
+    // }),
+  ],
 });
 ```
