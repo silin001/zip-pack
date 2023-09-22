@@ -15,8 +15,10 @@
     "url": "https://github.com/silin001/zip-pack"
   },
   "keywords": [
-    "zip-pack",
-    "zip"
+    "plugin-zip-pack",
+    "pack",
+    "zip",
+    "zip-pack"
   ],
   "author": "sisi",
   "license": "ISC",
