@@ -2,7 +2,7 @@ const fs = require('fs');
 const JSZip = require('jszip');
 const zip = new JSZip();
 
-const { deleteFile, getTargetDir, setOutputDir, isPathExists } = require('./util/index')
+const { sucess, error, deleteFile, getTargetDir, setOutputDir, isPathExists } = require('./util/index')
 
 /*
 将文件夹打包为.zip
@@ -10,13 +10,13 @@ targetDir： 需要打包的目录
 */
 function dirToZipFun ({ optZipName = "dist", targetDir = "dist" }) {
   if (!isPathExists(getTargetDir(targetDir))) {
-    console.log(getTargetDir(targetDir), '目标路径不存在，请传入存在的指定目录！')
+    console.log(sucess(getTargetDir(targetDir), '目标路径不存在，请传入存在的指定目录！'))
     return
   }
   // 设置 .zip包输出到当前项目跟目录
   const outputFilePath = setOutputDir(optZipName)
   if (isPathExists(outputFilePath)) {
-    console.log('先删除已存在的.zip目录-->', outputFilePath)
+    console.log(sucess('先删除已存在的.zip目录-->', outputFilePath))
     deleteFile(outputFilePath)
     setTimeout(() => {
       dirToZipHandle(optZipName, targetDir)
@@ -39,15 +39,14 @@ function dirToZipHandle (optZipName = "dist", targetDir = "dist") {
     .then((content) => {
       // 将压缩后的内容写入文件
       fs.writeFileSync(outputFilePath, content);
-      console.log(`
+      console.log(sucess(`
       ===========  zip-pack ========
       打包目标目录：'${targetDir}'
       打包输出路径：'${outputFilePath}'
-      ===========打包.zip成功========`);
-      // console.log('File compressed successfully.');
+      ===========打包.zip成功========`));
     })
     .catch((err) => {
-      console.error('Compression failed:', err);
+      console.error(error('Compression failed:', err));
     });
 }
 

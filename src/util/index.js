@@ -1,5 +1,10 @@
 const fs = require('fs');
 const { resolve, join } = require('path')
+const chalk = require('chalk')
+
+const error = chalk.red;
+const sucess = chalk.green;
+
 
 /*
  获取（以当前文件路径util位置）的项目根目录路径
@@ -10,7 +15,7 @@ const { resolve, join } = require('path')
 */
 const zipPackRootDir = resolve(); // xxx\zip-pack
 // xxx/zip-pack
-console.log('----当前路径:', zipPackRootDir)
+// console.log('----当前路径:', zipPackRootDir)
 function getNowDate () {
   const myDate = new Date;
   const year = myDate.getFullYear(); //获取当前年
@@ -26,9 +31,9 @@ function getNowDate () {
 function deleteFile (filePath) {
   try {
     fs.unlinkSync(filePath);
-    console.log('File deleted successfully.');
+    console.log(sucess('File deleted successfully.'));
   } catch (err) {
-    console.error('Error deleting file:', err);
+    console.error(error('Error deleting file:', err));
   }
 }
 
@@ -45,6 +50,8 @@ const setOutputDir = (optZipName) => {
 const isPathExists = (filePath) => fs.existsSync(filePath);
 
 module.exports = {
+  error,
+  sucess,
   join,
   zipPackRootDir,
   deleteFile,
