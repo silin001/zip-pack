@@ -1,6 +1,6 @@
 {
   "name": "plugin-zip-pack",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "用于项目build阶段压缩指定目录资源为.zip包",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
