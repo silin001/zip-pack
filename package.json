@@ -6,9 +6,7 @@
   "module": "lib/index.esm.js",
   "scripts": {
     "dev": "rollup -c rollup.config.js -w",
-    "build:types": "tsc",
-    "build": "rollup -c rollup.config.js",
-    "build2": "rollup -c rollup.config.js && pnpm build:types"
+    "build": "rollup -c rollup.config.js"
   },
   "repository": {
     "type": "git",
