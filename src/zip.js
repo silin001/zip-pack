@@ -9,7 +9,6 @@ const { deleteFile, getTargetDir, setOutputDir, isPathExists } = require('./util
 targetDir： 需要打包的目录
 */
 function dirToZipFun ({ optZipName = "dist", targetDir = "dist" }) {
-  console.log(22, optZipName, targetDir)
   if (!isPathExists(getTargetDir(targetDir))) {
     console.log(getTargetDir(targetDir), '目标路径不存在，请传入存在的指定目录！')
     return

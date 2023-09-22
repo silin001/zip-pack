@@ -7,13 +7,11 @@ function pluginPackZip (options = {}) {
     name: 'plugin-zip-pack',
     apply: 'build',
     closeBundle () {
-      console.log('=======》》打包完成!');
       console.log('Vite build completed!');
       dirToZipFun(options)
     }
   }
 }
-
 module.exports = {
   pluginPackZip,
   testaaa
