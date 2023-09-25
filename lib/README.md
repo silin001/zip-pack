@@ -10,7 +10,7 @@
 
 ```javascript
 // vite.config.ts
-import { pluginPackZip } from "plugin-zip-pack";
+const { pluginPackZip } = require("plugin-zip-pack");
 
 export default defineConfig({
   plugins: [
