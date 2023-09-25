@@ -1,14 +1,8 @@
 {
   "name": "plugin-zip-pack",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "用于项目build阶段压缩指定目录资源为.zip包",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.esm.js",
-  "scripts": {
-    "dev": "rollup -c rollup.config.js -w",
-    "build": "rollup -c rollup.config.js",
-    "bnpm": "node ./node-build"
-  },
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/silin001/zip-pack"
@@ -21,11 +15,8 @@
   ],
   "author": "sisi",
   "license": "ISC",
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.4",
-    "@rollup/plugin-node-resolve": "13.3.0",
+  "dependencies": {
     "chalk": "^4.0.0",
-    "jszip": "^3.10.1",
-    "rollup": "2.78.0"
+    "jszip": "^3.10.1"
   }
 }

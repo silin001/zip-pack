@@ -1,24 +1,11 @@
-'use strict';
-
-var require$$0$3 = require('fs');
-var require$$0 = require('stream');
-var require$$2 = require('events');
-var require$$0$1 = require('buffer');
-var require$$1 = require('util');
-var require$$1$2 = require('path');
-var require$$0$2 = require('os');
-var require$$1$1 = require('tty');
-
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-var require$$0__default$3 = /*#__PURE__*/_interopDefaultLegacy(require$$0$3);
-var require$$0__default = /*#__PURE__*/_interopDefaultLegacy(require$$0);
-var require$$2__default = /*#__PURE__*/_interopDefaultLegacy(require$$2);
-var require$$0__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$0$1);
-var require$$1__default = /*#__PURE__*/_interopDefaultLegacy(require$$1);
-var require$$1__default$2 = /*#__PURE__*/_interopDefaultLegacy(require$$1$2);
-var require$$0__default$2 = /*#__PURE__*/_interopDefaultLegacy(require$$0$2);
-var require$$1__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$1$1);
+import require$$0$3 from 'fs';
+import require$$0 from 'stream';
+import require$$2 from 'events';
+import require$$0$1 from 'buffer';
+import require$$1 from 'util';
+import require$$1$2 from 'path';
+import require$$0$2 from 'os';
+import require$$1$1 from 'tty';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -107,7 +94,7 @@ var hasRequiredStream;
 function requireStream () {
 	if (hasRequiredStream) return stream;
 	hasRequiredStream = 1;
-	stream = require$$0__default["default"];
+	stream = require$$0;
 	return stream;
 }
 
@@ -122,7 +109,7 @@ function requireSafeBuffer () {
 	if (hasRequiredSafeBuffer) return safeBuffer.exports;
 	hasRequiredSafeBuffer = 1;
 	(function (module, exports) {
-		var buffer = require$$0__default$1["default"];
+		var buffer = require$$0$1;
 		var Buffer = buffer.Buffer;
 
 		// alternative to using Object.keys for old browsers
@@ -296,7 +283,7 @@ function requireUtil () {
 	}
 	util$2.isPrimitive = isPrimitive;
 
-	util$2.isBuffer = require$$0__default$1["default"].Buffer.isBuffer;
+	util$2.isBuffer = require$$0$1.Buffer.isBuffer;
 
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -374,7 +361,7 @@ function requireBufferList () {
 		function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 		var Buffer = requireSafeBuffer().Buffer;
-		var util = require$$1__default["default"];
+		var util = require$$1;
 
 		function copyBuffer(src, target, offset) {
 		  src.copy(target, offset);
@@ -553,7 +540,7 @@ function requireNode () {
 	 * For Node.js, simply re-export the core `util.deprecate` function.
 	 */
 
-	node = require$$1__default["default"].deprecate;
+	node = require$$1.deprecate;
 	return node;
 }
 
@@ -1638,7 +1625,7 @@ function require_stream_readable () {
 	Readable.ReadableState = ReadableState;
 
 	/*<replacement>*/
-	require$$2__default["default"].EventEmitter;
+	require$$2.EventEmitter;
 
 	var EElistenerCount = function (emitter, type) {
 	  return emitter.listeners(type).length;
@@ -1668,7 +1655,7 @@ function require_stream_readable () {
 	/*</replacement>*/
 
 	/*<replacement>*/
-	var debugUtil = require$$1__default["default"];
+	var debugUtil = require$$1;
 	var debug = void 0;
 	if (debugUtil && debugUtil.debuglog) {
 	  debug = debugUtil.debuglog('stream');
@@ -2816,7 +2803,7 @@ function requireReadable () {
 	if (hasRequiredReadable) return readable.exports;
 	hasRequiredReadable = 1;
 	(function (module, exports) {
-		var Stream = require$$0__default["default"];
+		var Stream = require$$0;
 		if (process.env.READABLE_STREAM === 'disable' && Stream) {
 		  module.exports = Stream;
 		  exports = module.exports = Stream.Readable;
@@ -15708,8 +15695,8 @@ var hasFlag$1 = (flag, argv = process.argv) => {
 	return position !== -1 && (terminatorPosition === -1 || position < terminatorPosition);
 };
 
-const os = require$$0__default$2["default"];
-const tty = require$$1__default$1["default"];
+const os = require$$0$2;
+const tty = require$$1$1;
 const hasFlag = hasFlag$1;
 
 const {env} = process;
@@ -16252,8 +16239,8 @@ chalk$1.stderr.supportsColor = stderrColor;
 
 var source = chalk$1;
 
-const fs$1 = require$$0__default$3["default"];
-const { resolve, join } = require$$1__default$2["default"];
+const fs$1 = require$$0$3;
+const { resolve, join } = require$$1$2;
 const chalk = source;
 
 const error$1 = chalk.red;
@@ -16314,7 +16301,7 @@ var util = {
   isPathExists: isPathExists$1
 };
 
-const fs = require$$0__default$3["default"];
+const fs = require$$0$3;
 const JSZip = lib;
 const zip = new JSZip();
 
@@ -16394,8 +16381,12 @@ function pluginPackZip (options = {}) {
   return {
     name: 'plugin-zip-pack',
     apply: 'build',
-    closeBundle () {
+    closeBundle () { // 对于vite打包结束钩子
       console.log(sucess('Vite build completed!'));
+      dirToZipFun(options);
+    },
+    done () { // 对于webpack打包结束钩子
+      console.log(sucess('Webpack build completed!'));
       dirToZipFun(options);
     }
   }
@@ -16407,4 +16398,4 @@ var zipPack = {
 
 var index = /*@__PURE__*/getDefaultExportFromCjs(zipPack);
 
-module.exports = index;
+export { index as default };
