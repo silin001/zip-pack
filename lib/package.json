@@ -1,7 +1,7 @@
 {
   "name": "plugin-zip-pack",
-  "version": "1.0.6",
-  "description": "用于项目build阶段压缩指定目录资源为.zip包",
+  "version": "1.0.11",
+  "description": "用于项目build结束后压缩指定目录资源为.zip包",
   "main": "lib/index.js",
   "repository": {
     "type": "git",

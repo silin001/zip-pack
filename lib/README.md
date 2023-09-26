@@ -1,23 +1,36 @@
 # 说明
 
-`plugin-zip-pack` 将指定文件夹打包为.zip 包
+`plugin-zip-pack` 用于项目 webpack、vite build 结束后压缩指定目录资源为.zip 包
 
 # 安装
+
+`cnpm install plugin-zip-pack -D`
 
 `npm install plugin-zip-pack -D`
 
 # 使用
 
+- vite
+
 ```javascript
 // vite.config.ts
-const { pluginPackZip } = require("plugin-zip-pack");
-
+const { vitePluginPackZip, webpackPluginPackZip } = require("plugin-zip-pack");
 export default defineConfig({
   plugins: [
-    pluginPackZip(),
-    // pluginPackZip({
+    vitePluginPackZip(),
+    // vitePluginPackZip({
     //   optZipName: '测试包'
     // }),
   ],
+});
+```
+
+- webpack
+
+```javascript
+// webpack.config.js
+const { webpackPluginPackZip } = require("plugin-zip-pack");
+export default defineConfig({
+  plugins: [new webpackPluginPackZip()],
 });
 ```

@@ -6,7 +6,8 @@
   "module": "build/index.esm.js",
   "scripts": {
     "dev": "rollup -c rollup.config.js -w",
-    "lib": "node ./script/lib.js",
+    "lib": "node ./script/lib.js && pnpm lib:publish",
+    "lib:publish": "cd ./lib && npm publish",
     "build": "rollup -c rollup.config.js",
     "build:publish": "node ./script/npm-build"
   },

@@ -80,19 +80,6 @@ function publishPackage (newVersion, tarDir) {
       return;
     }
     console.log('npm包版本更新完成！');
-    // 发布新版本的 npm 包
-    npmPublish(tarDir)
-  });
-}
-
-function npmPublish (tarDir) {
-  console.log(tarDir)
-  exec(`cd ${tarDir}&& npm publish`, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error publishing package: ${error}`);
-      return;
-    }
-    console.log('npm包发布完成！');
   });
 }
 
@@ -106,6 +93,5 @@ module.exports = {
   getTargetDir,
   setOutputDir,
   isPathExists,
-  publishPackage,
-  npmPublish
+  publishPackage
 }
