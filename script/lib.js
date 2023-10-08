@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-09-25 10:56:46
- * @LastEditTime: 2023-09-25 16:01:34
+ * @LastEditTime: 2023-10-08 16:44:22
  * @Description: 不使用rollup打包
- * @FilePath: /my-v3ts-project/Users/sisi/Desktop/myWeb/my-project/zip-pack/script/lib.js
+ * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\script\lib.js
  */
 
 const fs = require('fs');
@@ -17,6 +17,7 @@ const sourcePaths = [sourceFilePath1, sourceFilePath2];
 
 copyFiles(sourcePaths, tarDir);
 
+// 复制指定文件夹和文件
 function copyFiles (sourcePaths, targetDir) {
   // 先删除之前lib到src、index
   const srcFolderPath = join(targetDir, 'src');

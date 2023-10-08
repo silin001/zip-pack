@@ -19,11 +19,15 @@ class webpackPluginPackZip {
     this.options = options;
   }
   apply (compiler) {
-    compiler.hooks.afterEmit.tap('webpackPluginPackZip', () => {
-      // 在打包完成后执行你的函数或操作
+    // compiler.hooks.afterEmit.tap('webpackPluginPackZip', () => {
+    //   // 在打包完成后执行你的函数或操作
+    //   console.log(sucess('Webpack build completed!'));
+    //   dirToZipFun(this.options)
+    // });
+    compiler.hooks.done.tap('webpackPluginPackZip', () => {
       console.log(sucess('Webpack build completed!'));
       dirToZipFun(this.options)
-    });
+    })
   }
 }
 
