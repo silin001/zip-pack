@@ -7,9 +7,12 @@
   "scripts": {
     "dev": "rollup -c rollup.config.js -w",
     "lib": "node ./script/lib.js && pnpm lib:publish",
-    "lib:publish": "cd ./lib && npm publish",
+    "lib:publish": "cd ./lib && pnpm setnpm && npm login && npm publish && pnpm setnpmaly",
     "build": "rollup -c rollup.config.js",
-    "build:publish": "node ./script/npm-build"
+    "build:publish": "node ./script/npm-build",
+    "getnpm": "npm config get registry",
+    "setnpm": "npm config set registry https://registry.npmjs.org/",
+    "setnpmaly": "npm config set registry https://registry.npmmirror.com/"
   },
   "repository": {
     "type": "git",
