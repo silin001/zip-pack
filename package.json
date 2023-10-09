@@ -6,12 +6,16 @@
   "module": "build/index.esm.js",
   "scripts": {
     "dev": "rollup -c rollup.config.js -w",
-    "lib": "node ./script/lib.js && pnpm lib:publish",
-    "lib:publish": "cd ./lib && pnpm setnpm && npm login && npm publish && pnpm setnpmaly",
+    "lib": "node ./script/lib.js && pnpm set:npmsource && pnpm lib:publish",
+    "set:npmsource": "pnpm getnpm && pnpm setnpm",
+    "lib:publish": "cd ./lib && npm publish && cd ../ && pnpm setnpmtb",
+    "lib:publish2": "cd ./lib && npm login && npm publish && cd ../ && pnpm setnpmaly",
+    "lib:publish3": "cd ./lib && npm login && npm publish",
     "build": "rollup -c rollup.config.js",
     "build:publish": "node ./script/npm-build",
     "getnpm": "npm config get registry",
     "setnpm": "npm config set registry https://registry.npmjs.org/",
+    "setnpmtb": "npm config set registry https://registry.npm.taobao.org",
     "setnpmaly": "npm config set registry https://registry.npmmirror.com/"
   },
   "repository": {

@@ -1,12 +1,13 @@
 {
   "name": "plugin-zip-pack",
-  "version": "1.0.12",
+  "version": "1.0.14",
   "description": "用于项目build结束后压缩指定目录资源为.zip包",
-  "main": "lib/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/silin001/zip-pack"
   },
+  "homepage": "https://www.npmjs.com/package/plugin-zip-pack",
   "keywords": [
     "plugin-zip-pack",
     "pack",
