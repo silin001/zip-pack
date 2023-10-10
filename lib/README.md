@@ -47,7 +47,14 @@ export default defineConfig({
 ```javascript
 // webpack.config.js
 const { WebpackPluginZipPack } = require("plugin-zip-pack");
-export default defineConfig({
-  plugins: [new WebpackPluginZipPack()],
-});
+
+module.exports = {
+    configureWebpack: {
+        plugins: [
+            new WebpackPluginZipPack({
+                optZipName: 'xxxpc端'
+            })
+        ]
+    }
+};
 ```
