@@ -29,12 +29,14 @@
 
 ```javascript
 // vite.config.js
-const { vitePluginPackZi } = require("plugin-zip-pack");
+const { vitePluginZipPack } = require("plugin-zip-pack");
 export default defineConfig({
   plugins: [
-    vitePluginPackZip(),
-    // vitePluginPackZip({
-    //   optZipName: '测试包'
+    vitePluginZipPack(),
+    // vitePluginZipPack({
+    //   optZipName: '测试包',
+    //   targetDir: 'public',
+    //   enable: false
     // }),
   ],
 });
@@ -44,8 +46,8 @@ export default defineConfig({
 
 ```javascript
 // webpack.config.js
-const { webpackPluginPackZip } = require("plugin-zip-pack");
+const { WebpackPluginZipPack } = require("plugin-zip-pack");
 export default defineConfig({
-  plugins: [new webpackPluginPackZip()],
+  plugins: [new WebpackPluginZipPack()],
 });
 ```
