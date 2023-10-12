@@ -1,3 +1,9 @@
+# 简介
+
+`plugin-zip-pack` 【插件源码】，用于项目 webpack、vite build 结束后压缩指定目录资源为.zip 包
+
+[plugin-zip-pack - npm (npmjs.com)](https://www.npmjs.com/package/plugin-zip-pack)
+
 # npm源注意！
 
 发布时报错：`Public registration is not allowed`
