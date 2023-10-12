@@ -1,5 +1,5 @@
 // 入口文件向外暴露需要的成员
-const { dirToZipFun } = require('./src/zip')
+const { dirToZipFun } = require('./src/plugin-zip-pack')
 const { sucess } = require('./src/util/index')
 const test = 666
 // 返回vite插件钩子，在打包结束时打包为zip

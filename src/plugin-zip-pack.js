@@ -13,7 +13,7 @@ function dirToZipFun ({ enable=true, optZipName = "dist", targetDir = "dist" }) 
     console.log(sucess(`
       <===========   插件已禁用   ======>
       ${pkg.name} 插件版本：${pkg.version}
-      如需开启请在参数选项 enable字段传入值为 true
+      如需开启请在参数选项 enable 字段传入值为 true
       <=========== plugin-zip-pack ======>`));
     return
   }
