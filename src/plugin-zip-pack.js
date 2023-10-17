@@ -14,7 +14,7 @@ function dirToZipFun ({ enable=true, optZipName = "dist", targetDir = "dist" }) 
       <===========   插件已禁用   ======>
       ${pkg.name} 插件版本：${pkg.version}
       如需开启请在参数选项 enable 字段传入值为 true
-      <=========== plugin-zip-pack ======>`));
+      <=========== ${pkg.name} ======>`));
     return
   }
   if (!isPathExists(getTargetDir(targetDir))) {
@@ -52,7 +52,7 @@ function dirToZipHandle (optZipName = "dist", targetDir = "dist") {
       ${pkg.name} 插件版本：${pkg.version}
       打包目标目录：'${targetDir}'
       打包输出路径：'${outputFilePath}'
-      <=========== plugin-zip-pack ======>`));
+      <=========== ${pkg.name} ======>`));
     })
     .catch((err) => {
       console.error(error('Compression failed:', err));
