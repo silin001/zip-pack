@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    // 这里 "ES5"可以帮我们将代码打包为ES5的语法，所以这里不用再使用babel来进行语法转换了。
+    // "target": "es5",
+    "target": "ESNext",
+    "module": "ESNext",
+    // "module": "esnext",
+    // "module": "commonjs",
+    // "module": "es2015",
+    "declaration": true, // 根据ts文件自动生成.d.ts声明文件和js文件
+    "emitDeclarationOnly": true, // 只输出.d.ts声明文件，不生成js文件
+    "outDir": "./build", // 输出目录
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    // "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  // "include": ["src/*.ts"],
+  "exclude": ["node_modules", "lib"]
+  // 只编译 src 目录下的文件
+  // "include": ["src"],
+  // "exclude": ["test"]
+}

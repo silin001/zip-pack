@@ -1,0 +1,25 @@
+{
+  "name": "plugin-zip-pack",
+  "version": "1.0.16",
+  "description": "用于项目build阶段压缩指定目录资源为.zip包，ts实现",
+  "module": "index.esm.js",
+  "main": "index.cjs.js",
+  "browser": "index.umd.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silin001/zip-pack"
+  },
+  "keywords": [
+    "plugin-zip-pack",
+    "pack",
+    "zip",
+    "zip-pack"
+  ],
+  "author": "sisi",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "jszip": "^3.10.1"
+  }
+}

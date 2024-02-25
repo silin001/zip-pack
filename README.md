@@ -23,28 +23,42 @@
 
 # 打包相关
 
-## 打包方式1（体积小，推荐）
+## 本地打包调试
+
+`pnpm dev:test`:  只用于更新本地lib目录（不发布npm包!）用于本地调试，不使用rollup打包（目前该插件实现功能简单，使用rollup打包后体积反而会比源码文件大） 而是使用 lib.js 复制 src、index源码到lib目录下
+
+
+`dev:build`: 用于本地打包（不发布npm包!），包含ts类型文件，打包完成后进行本地测试
+
+build文件夹下需要package.json文件，不需要打包时的一些依赖，只保留核心依赖即可。
+
+## 打包方式1（不使用rollup，体积小，推荐）
 
 源码使用到了node模块、使用 commonJs 语法导出，所以此打包方式只支持 commonJs 引入使用。
-
+- 打包
 `pnpm lib`: 会先打包、更改npm源、然后发布npm。发布前需要先登录npm、输入邮箱、输入验证码，比较麻烦。目前这里使用了npm token + f2a 方式验证登录，每次发布时需要在手机的 `Authenticator App` 输入6位数的 otp 验证码即可。
 
-`"lib:publish": "cd ./lib && npm publish && cd ../ && pnpm setnpmtb",`: 该命令先 cd 指定目录，然后设置npm源为npm镜像（必须）、然后直接发布、最后发布完成后在把npm源设置为最开始的淘宝源。
+- 发布npm官网
+`"lib:publish": "cd ./lib && npm publish && cd ../ && pnpm setnpmtb",`: 该命令先 cd 指定目录
+然后设置npm源为npm镜像（必须）
+然后直接发布、
+最后发布完成后在把npm源设置为最开始的淘宝源。
 
 
 ps: lib目录中 package.json 文件如果后期有依赖更新需要手动更改。
 
-script下 lib.js 实现使用node模块复制src、index文件到lib目录
+script目录下的 lib.js 实现是使用node模块复制src、index文件到lib目录
 
 
 
-## 打包方式2（rollup）
+## 打包方式2（使用rollup打包）
 
-可配置打包出支持 commonJs、esm、umd。
+可配置打包出支持 esm、cjs、umd
 
-打包： `pnpm build`
+- 打包： `pnpm build`
+会先打包生成 ts的类型文件，然后使用 rollup进行打包
 
-发布npm： `pnpm build:publish`
+- 发布npm： `pnpm build:publish`
 
 ps：目前该插件实现功能简单，使用rollup打包后体积反而会比源码文件大。
 

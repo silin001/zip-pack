@@ -1,22 +1,25 @@
 /*
- * @Date: 2023-09-25 10:56:46
- * @LastEditTime: 2024-01-30 10:35:32
- * @Description: 不使用rollup打包
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\script\lib.js
+ * @Date: 2024-01-30 10:34:58
+ * @LastEditTime: 2024-01-30 16:44:06
+ * @Description:
+ * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\script\lib-dev.js
  */
-
 const fs = require('fs');
 const { resolve, join } = require('path');
 const { deleteFileOrFolder, publishPackage, copyFilesFun} = require('../src/util/index')
+// import { deleteFileOrFolder, copyFilesFun } from '../src/util/index.ts '
 // 最终目录/build
 const tarDir = resolve(__dirname, '../lib')
 // 复制src、index
 const sourceFilePath1 = resolve(__dirname, '../src')
-const sourceFilePath2 = resolve(__dirname, '../index.js')
+const sourceFilePath2 = resolve(__dirname, '../index.ts')
 const sourcePaths = [sourceFilePath1, sourceFilePath2];
 
+const pkg = resolve(__dirname, '../package.json')
+console.log('🚀🚀 ~ pkg:', pkg)
+
 function init (sourcePaths, targetDir) {
-  // 先删除之前lib下的 src、index
+  // 先删除之前lib下的 src、indexjjj
   const srcFolderPath = join(targetDir, 'src');
   const indexFilePath = join(targetDir, 'index.js');
   if (fs.existsSync(srcFolderPath) && fs.existsSync(indexFilePath)) {
@@ -47,7 +50,7 @@ const oredr = {
   3: 'major',
 }
 // console.log(oredr[1])
-publishPackage(oredr[1], tarDir)
+// publishPackage(oredr[1], tarDir)
 
 
 
