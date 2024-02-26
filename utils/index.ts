@@ -1,14 +1,14 @@
 /*
  * @Date: 2024-02-23 15:32:16
- * @LastEditTime: 2024-02-25 20:42:44
- * @Description: node 的一些方法
+ * @LastEditTime: 2024-02-26 14:28:37
+ * @Description: 一些公用方法
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\utils\index.ts
  */
 const fs = require('fs');
 const { exec } = require('child_process');
 const { resolve, join, basename } = require('path')
 // const chalk = require('chalk')
-// TODO 这样导入会报警告
+// TODO import 这样导入打包时会报警告， require会报错
 import chalk  from 'chalk'
 
 const error = chalk.red;
@@ -24,7 +24,6 @@ const sucess = chalk.green;
 */
 const zipPackRootDir = resolve(); // xxx\zip-pack
 // xxx/zip-pack
-// console.log('----当前路径:', zipPackRootDir)
 function getNowDate () {
   const myDate = new Date;
   const year = myDate.getFullYear(); //获取当前年

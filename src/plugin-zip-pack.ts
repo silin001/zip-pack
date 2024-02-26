@@ -20,7 +20,7 @@ import { DirToZipFunType, VitePluginZipPackType } from "./type/index";
 /** 支持vite打包的插件函数 */
 export const vitePluginZipPack = (
   options: DirToZipFunType
-): VitePluginZipPackType => {
+) => {
   return {
     name: "vite-plugin-zip-pack",
     apply: "build",
@@ -31,6 +31,20 @@ export const vitePluginZipPack = (
     },
   };
 };
+/** 支持vite打包的插件函数 */
+// export const vitePluginZipPack = (
+//   options: DirToZipFunType
+// ): VitePluginZipPackType => {
+//   return {
+//     name: "vite-plugin-zip-pack",
+//     apply: "build",
+//     closeBundle() {
+//       // vite打包结束时的钩子
+//       console.log(sucess("Vite build completed!"));
+//       dirToZipFun(options);
+//     },
+//   };
+// };
 
 /** 支持webpack打包的 类插件函数 */
 export class WebpackPluginZipPack {
@@ -77,7 +91,7 @@ import { name, version } from '../package.json'
  * @return {*}
  */
 function dirToZipFun({
-  enable,
+  enable = true,
   optZipName = "dist",
   targetDir = "dist",
 }: DirToZipFunType) {

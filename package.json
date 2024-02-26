@@ -9,8 +9,9 @@
   "scripts": {
     "dev": "rollup -c rollup.config.js -w",
     "dev:test": "node ./script/lib-dev.js",
-    "dev:build": "npm run build:types && rollup -c rollup.config.js -w",
-    "build:types": "tsc",
+    "dev:build": "rollup -c rollup.config.js -w",
+    "dev:build2": "npm run build:types && rollup -c rollup.config.js -w",
+    "build:types": "tsc --declaration --declarationDir",
     "lib": "node ./script/lib.js && pnpm set:npmsource && pnpm lib:publish",
     "set:npmsource": "pnpm getnpm && pnpm setnpm",
     "lib:publish": "cd ./lib && npm publish && cd ../ && pnpm setnpmaly",
@@ -44,6 +45,7 @@
     "chalk": "^4.0.0",
     "jszip": "^3.10.1",
     "rollup": "2.78.0",
+    "rollup-plugin-dts": "^6.1.0",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   }

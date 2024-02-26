@@ -1,3 +1,4 @@
+/** vite插件类型 */
 export type VitePluginZipPackType = {
     name: string;
     apply: "build";
@@ -7,5 +8,5 @@ export type VitePluginZipPackType = {
 export type DirToZipFunType = {
     enable?: boolean;
     optZipName: string;
-    targetDir: string;
+    targetDir?: string;
 };

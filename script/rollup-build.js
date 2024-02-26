@@ -1,6 +1,6 @@
 /*
  * @Date: 2023-09-22 15:44:59
- * @LastEditTime: 2024-02-23 17:01:48
+ * @LastEditTime: 2024-02-25 23:13:22
  * @Description: rollup打包后最终目录：build
  * 使用node脚本发布npm包
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\script\rollup-build.js
@@ -16,7 +16,7 @@ const sourceFilePath = resolve(__dirname, '../build')
 const tarDir = resolve(__dirname, '../zip-pack-npm')
 
 // build 文件夹的所有文件
-const fileList = ['src', 'index.cjs.js', 'index.esm.js', 'index.umd.js', 'index.d.ts']
+const fileList = ['src', 'utils', 'index.cjs.js', 'index.esm.js', 'index.umd.js', 'index.d.ts']
 const sourcePathsList = getAllFile()
 /* 获取所有文件 */
 function getAllFile () {
