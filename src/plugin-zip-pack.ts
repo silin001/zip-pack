@@ -1,7 +1,7 @@
-// import * as fs from 'fs'
-// import JSZip from "jszip"
-const fs = require("fs");
-const JSZip = require("jszip");
+import fs from 'fs'
+import JSZip from "jszip"
+// const fs = require("fs");
+// const JSZip = require("jszip");
 const zip = new JSZip();
 
 import {
@@ -49,26 +49,28 @@ export class WebpackPluginZipPack {
   }
 }
 
-const { name, version } = getPackJson();
-function getPackJson() {
-  const pkg = {
-    name: "",
-    version: "",
-  };
-  // 使用 resolve 获取真实的json文件 path路径
-  const packageJsonPath = resolve(__dirname, "package.json");
-  try {
-    // 读取文件内容
-    const packageJsonString = fs.readFileSync(packageJsonPath, "utf8");
-    const { name, version } = JSON.parse(packageJsonString);
-    pkg.name = name;
-    pkg.version = version;
-  } catch (err) {
-    console.error("无法读取npm包的 package.json 文件:", err);
-  }
-  console.log("pkg--", pkg);
-  return pkg;
-}
+import { name, version } from '../package.json'
+// const { name, version } = getPackJson();
+/** 使用fs模块读取指定文件 */
+// function getPackJson() {
+//   const pkg = {
+//     name: "",
+//     version: "",
+//   };
+//   // 使用 resolve 获取真实的json文件 path路径
+//   const packageJsonPath = resolve(__dirname, "package.json");
+//   try {
+//     // 读取文件内容
+//     const packageJsonString = fs.readFileSync(packageJsonPath, "utf8");
+//     const { name, version } = JSON.parse(packageJsonString);
+//     pkg.name = name;
+//     pkg.version = version;
+//   } catch (err) {
+//     console.error("无法读取npm包的 package.json 文件:", err);
+//   }
+//   console.log("pkg--", pkg);
+//   return pkg;
+// }
 
 /**
  * @description: 将文件夹打包为.zip
