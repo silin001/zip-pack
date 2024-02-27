@@ -1,6 +1,6 @@
 {
   "name": "plugin-zip-pack",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "ts实现用于项目build阶段压缩指定目录资源为.zip包",
   "main": "index.umd.js",
   "types": "index.d.ts",

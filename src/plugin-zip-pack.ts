@@ -1,26 +1,35 @@
 import fs from 'fs'
-import JSZip from "jszip"
-// const fs = require("fs");
-// const JSZip = require("jszip");
-const zip = new JSZip();
+// TODO 打包报错 循环引用依赖
+import jszip from "jszip"
+const JSZip = new jszip();
 
 import {
   sucess,
   error,
-  resolve,
   deleteFile,
   getTargetDir,
   setOutputDir,
   isPathExists,
   getNowDate,
-} from "../utils/index";
+} from "./utils/index";
+
+// const {
+//   sucess,
+//   error,
+//   resolve,
+//   deleteFile,
+//   getTargetDir,
+//   setOutputDir,
+//   isPathExists,
+//   getNowDate,
+// } =  require('../utils/index')
 
 import { DirToZipFunType, VitePluginZipPackType } from "./type/index";
 
-/** 支持vite打包的插件函数 */
+/** 支持vite打包指定文件夹为.zip包 */
 export const vitePluginZipPack = (
   options: DirToZipFunType
-) => {
+): VitePluginZipPackType => {
   return {
     name: "vite-plugin-zip-pack",
     apply: "build",
@@ -31,20 +40,6 @@ export const vitePluginZipPack = (
     },
   };
 };
-/** 支持vite打包的插件函数 */
-// export const vitePluginZipPack = (
-//   options: DirToZipFunType
-// ): VitePluginZipPackType => {
-//   return {
-//     name: "vite-plugin-zip-pack",
-//     apply: "build",
-//     closeBundle() {
-//       // vite打包结束时的钩子
-//       console.log(sucess("Vite build completed!"));
-//       dirToZipFun(options);
-//     },
-//   };
-// };
 
 /** 支持webpack打包的 类插件函数 */
 export class WebpackPluginZipPack {
@@ -137,10 +132,9 @@ function dirToZipHandle(optZipName: string, targetDir: string) {
   // 设置 .zip包输出到当前项目跟目录
   const outputFilePath = setOutputDir(optZipName);
   // 打包zip
-  addFilesToZip(zip, targetPath);
+  addFilesToZip(JSZip, targetPath);
   // 生成zip压缩包内容的Buffer值，专门为Node.js使用
-  zip
-    .generateAsync({ type: "nodebuffer" })
+  JSZip.generateAsync({ type: "nodebuffer" })
     .then((content) => {
       // 将压缩后的内容写入文件
       fs.writeFileSync(outputFilePath, content);

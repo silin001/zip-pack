@@ -5,7 +5,7 @@ export type VitePluginZipPackType = {
   closeBundle: () => void;
 };
 
-/** 限制插件参数字段 */
+/** 打包指定文件夹为.zip参数字段类型 */
 export type DirToZipFunType = {
   enable?: boolean;
   optZipName: string;

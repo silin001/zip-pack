@@ -14,10 +14,6 @@ if(typeof window !== 'undefined') {
   window.ZipPack_VERSION_ = '${pkg.version}'
 }`
 
-// "dependencies": {
-//   "chalk": "^4.0.0",
-//   "jszip": "^3.10.1"
-// }
 
 export default [
   {
@@ -33,7 +29,14 @@ export default [
         // sourcemap: true,
         globals: {
           // 你的模块名: 全局变量名
-          'ZipPack': 'ZipPack',
+          'fs': 'ZipPack_fs',
+          'stream': 'ZipPack_stream',
+          'events': 'ZipPack_events',
+          'buffer': 'ZipPack_buffer',
+          'util': 'ZipPack_util',
+          'os': 'ZipPack_os',
+          'tty': 'ZipPack_tty',
+
         },
       },
       // {
@@ -68,6 +71,7 @@ export default [
   // 生成.d.ts文件
   {
     input: "./src/index.ts",
+    // input: "build/index.d.ts",
     output: [{ file: "build/index.d.ts", format: "es" }],
     plugins: [dts()],
   },

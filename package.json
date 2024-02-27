@@ -1,7 +1,7 @@
 {
   "name": "plugin-zip-pack",
   "version": "1.0.0",
-  "description": "用于项目build阶段压缩指定目录资源为.zip包",
+  "description": "npm包源码-build阶段压缩指定目录资源为.zip包",
   "main": "build/index.umd.js",
   "module": "build/index.mjs",
   "browser": "build/index.browser.js",
@@ -17,7 +17,7 @@
     "lib:publish": "cd ./lib && npm publish && cd ../ && pnpm setnpmaly",
     "lib:publish2": "cd ./lib && npm login && npm publish && cd ../ && pnpm setnpmaly",
     "lib:publish3": "cd ./lib && npm login && npm publish",
-    "build": "pnpm set:npmsource && npm run build:types && rollup -c rollup.config.js && pnpm build:cp",
+    "build": "pnpm set:npmsource && rollup -c rollup.config.js && pnpm build:cp",
     "build:cp": "node ./script/rollup-build.js && pnpm build:publish",
     "build:publish": "cd ./zip-pack-npm && npm publish && cd ../ && pnpm setnpmaly",
     "getnpm": "npm config get registry",

@@ -1,60 +1,12 @@
 /*
  * @Date: 2024-02-23 15:32:16
- * @LastEditTime: 2024-02-26 14:28:37
- * @Description: 一些公用方法
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\utils\index.ts
+ * @LastEditTime: 2024-02-27 17:24:24
+ * @Description: 打包时 rollup-buld使用的方法
+ * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\utils\build.js
  */
 const fs = require('fs');
 const { exec } = require('child_process');
 const { resolve, join, basename } = require('path')
-// const chalk = require('chalk')
-// TODO import 这样导入打包时会报警告， require会报错
-import chalk  from 'chalk'
-
-const error = chalk.red;
-const sucess = chalk.green;
-
-
-/*
- 获取（以当前文件路径util位置）的项目根目录路径
- __dirname 是当前文件夹路径 d:\web_si\my_webDemo\my-projectFrame\zip-pack\src\util
- 需要注意：
- 在node环境可以直接访问，而在浏览器中会找不到！ 需要声明
- const __dirname = resolve()
-*/
-const zipPackRootDir = resolve(); // xxx\zip-pack
-// xxx/zip-pack
-function getNowDate () {
-  const myDate = new Date;
-  const year = myDate.getFullYear(); //获取当前年
-  const mon = myDate.getMonth() + 1; //获取当前月
-  const date = myDate.getDate(); //获取当前日
-  const hours = myDate.getHours(); //获取当前小时
-  const minute = myDate.getMinutes();
-  let timeValue = ''
-  if (hours <= 12) {
-    timeValue = '上午'
-  } else if (hours > 12 && hours < 18) {
-    timeValue = "下午";
-  } else if (hours>=18) {
-    timeValue = "晚上";
-  }
-  return {
-    currentDate: `(${year}-${mon}-${date}日${hours}:${minute})`,
-    distDate: `(${year}-${mon}-${date}-${timeValue})`,
-  };
-}
-
-
-/* 删除文件 */
-function deleteFile (filePath) {
-  try {
-    fs.unlinkSync(filePath);
-    console.log(sucess('File deleted successfully.'));
-  } catch (err) {
-    console.error(error('Error deleting file:', err));
-  }
-}
 
 /* 删除文件夹或文件 */
 function deleteFileOrFolder (fileOrFolderPath) {
@@ -75,15 +27,6 @@ function deleteFileOrFolder (fileOrFolderPath) {
   }
 }
 
-
-/* 获取目标路径 */
-const getTargetDir = (targetDir) => resolve(zipPackRootDir, targetDir);
-
-/* 设置.zip最终输出目录（默认项目根目录） */
-const setOutputDir = (optZipName) => {
-  const res = join(zipPackRootDir, `${optZipName}-${getNowDate().distDate}.zip`)
-  return res
-};
 
 /* 复制文件夹或文件 */
 function copyFilesFun (sourcePaths, targetDir) {
@@ -112,9 +55,6 @@ function copyFilesFun (sourcePaths, targetDir) {
   });
 }
 
-/* 判断文件是否存在 */
-const isPathExists = (filePath) => fs.existsSync(filePath);
-
 
 /* npm版本更新、发布npm包 */
 function publishPackage (newVersion, tarDir) {
@@ -128,18 +68,8 @@ function publishPackage (newVersion, tarDir) {
   });
 }
 
-export {
-  error,
-  sucess,
-  join,
-  resolve,
-  zipPackRootDir,
-  deleteFile,
-  getNowDate,
+module.exports = {
   deleteFileOrFolder,
-  getTargetDir,
-  setOutputDir,
-  isPathExists,
-  publishPackage,
   copyFilesFun,
-};
+  publishPackage
+}
