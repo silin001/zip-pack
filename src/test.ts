@@ -1,13 +1,14 @@
 /*
  * @Date: 2024-02-25 18:39:32
- * @LastEditTime: 2024-02-26 17:11:15
+ * @LastEditTime: 2024-02-28 13:19:25
  * @Description: 测试文件
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\test.ts
  */
 
 
 
-export const test = "2-25 ts版本测试";
+export const test = "ts版本测试";
+
 export const testFun = (num: number = 100) => {
   return num + 1;
 };

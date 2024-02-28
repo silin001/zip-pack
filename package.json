@@ -41,7 +41,7 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "13.3.0",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^20.11.10",
+    "@types/node": "^20.11.21",
     "chalk": "^4.0.0",
     "jszip": "^3.10.1",
     "rollup": "2.78.0",

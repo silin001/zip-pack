@@ -2,10 +2,11 @@
 import commonjs from '@rollup/plugin-commonjs'; // 将 common js 模块转成es6
 // 让rollup支持 ts
 import typescript from '@rollup/plugin-typescript';
+// import typescript from 'rollup-plugin-typescript2';
 // rollup 并不知道如何寻找路径以外的依赖如 node_module 中的依赖。 所以需要借助 @rollup/plugin-node-resolve 插件帮助程序可以在项目依赖中找到对应文件。
 import nodeResolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json'
-import { dts } from "rollup-plugin-dts";
+// import { dts } from "rollup-plugin-dts";
 import pkg from './package.json'
 
 // 一段自定义的内容，以下内容会添加到打包结果中
@@ -58,21 +59,25 @@ export default [
     ],
     plugins: [
       // 将 CommonJS规范 转换成 ES2015
+      json(),
       commonjs(),
       nodeResolve(),
       // 让rollup 支持打包ts代码,并可以指定ts代码打包过程中的相关配置
       typescript(),
-      json()
+      // typescript({
+      //   useTsconfigDeclarationDir: true,
+      //   }
+      // })`
     ],
     ignore: [
       "node_modules/**" // 忽略目录
     ]
   },
   // 生成.d.ts文件
-  {
-    input: "./src/index.ts",
-    // input: "build/index.d.ts",
-    output: [{ file: "build/index.d.ts", format: "es" }],
-    plugins: [dts()],
-  },
+  // {
+  //   input: "./src/index.ts",
+  //   // input: "build/index.d.ts",
+  //   output: [{ file: "build/index.d.ts", format: "es" }],
+  //   plugins: [dts()],
+  // },
 ]

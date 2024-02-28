@@ -9,6 +9,7 @@
     // "module": "es2015",
     "declaration": true, // 根据ts文件自动生成.d.ts声明文件和js文件
     "emitDeclarationOnly": true, // 只输出.d.ts声明文件，不生成js文件
+    "rootDir": "src", // 解决
     "outDir": "./build", // 输出目录
     "forceConsistentCasingInFileNames": true,
     "strict": true,

@@ -1,32 +1,25 @@
-import fs from 'fs'
-// TODO 打包报错 循环引用依赖
-import jszip from "jszip"
-const JSZip = new jszip();
+/*
+ * @Date: 2024-02-23 16:20:49
+ * @LastEditTime: 2024-02-28 13:18:08
+ * @Description: plugin-zip-pack 插件入口文件
+ * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugin-zip-pack.ts
+ */
+import { DirToZipFunType, VitePluginZipPackType } from "./type/index";
 
 import {
   sucess,
-  error,
   deleteFile,
   getTargetDir,
   setOutputDir,
   isPathExists,
-  getNowDate,
+  dirToZipHandle,
 } from "./utils/index";
 
-// const {
-//   sucess,
-//   error,
-//   resolve,
-//   deleteFile,
-//   getTargetDir,
-//   setOutputDir,
-//   isPathExists,
-//   getNowDate,
-// } =  require('../utils/index')
+import { name, version } from '../package.json'
 
-import { DirToZipFunType, VitePluginZipPackType } from "./type/index";
 
-/** 支持vite打包指定文件夹为.zip包 */
+
+/** 支持vite打包指定文件夹为.zip包的插件函数 */
 export const vitePluginZipPack = (
   options: DirToZipFunType
 ): VitePluginZipPackType => {
@@ -41,7 +34,7 @@ export const vitePluginZipPack = (
   };
 };
 
-/** 支持webpack打包的 类插件函数 */
+/** 支持webpack打包指定文件夹为.zip包的类插件函数 */
 export class WebpackPluginZipPack {
   private options: DirToZipFunType;
   constructor(options: DirToZipFunType) {
@@ -57,29 +50,6 @@ export class WebpackPluginZipPack {
     }
   }
 }
-
-import { name, version } from '../package.json'
-// const { name, version } = getPackJson();
-/** 使用fs模块读取指定文件 */
-// function getPackJson() {
-//   const pkg = {
-//     name: "",
-//     version: "",
-//   };
-//   // 使用 resolve 获取真实的json文件 path路径
-//   const packageJsonPath = resolve(__dirname, "package.json");
-//   try {
-//     // 读取文件内容
-//     const packageJsonString = fs.readFileSync(packageJsonPath, "utf8");
-//     const { name, version } = JSON.parse(packageJsonString);
-//     pkg.name = name;
-//     pkg.version = version;
-//   } catch (err) {
-//     console.error("无法读取npm包的 package.json 文件:", err);
-//   }
-//   console.log("pkg--", pkg);
-//   return pkg;
-// }
 
 /**
  * @description: 将文件夹打包为.zip
@@ -119,51 +89,3 @@ function dirToZipFun({
   }
 }
 
-/**
- * @description: 将指定文件夹打包为.zip
- * @param {*} optZipName 打包后文件夹名称 xxx
- * @param {*} targetDir 需要打包的文件夹 dist
- * @return {*}
- */
-function dirToZipHandle(optZipName: string, targetDir: string) {
-  // function dirToZipHandle (optZipName = "dist", targetDir = "dist") {
-  // 获取要打包的目录路径
-  const targetPath = getTargetDir(targetDir);
-  // 设置 .zip包输出到当前项目跟目录
-  const outputFilePath = setOutputDir(optZipName);
-  // 打包zip
-  addFilesToZip(JSZip, targetPath);
-  // 生成zip压缩包内容的Buffer值，专门为Node.js使用
-  JSZip.generateAsync({ type: "nodebuffer" })
-    .then((content) => {
-      // 将压缩后的内容写入文件
-      fs.writeFileSync(outputFilePath, content);
-      console.log(
-        sucess(`
-      <===========   zip打包成功   ======>
-      ${name} 插件版本：${version}
-      打包目标目录：'${targetDir}'
-      打包输出路径：'${outputFilePath}'
-      打包完成时间：'${getNowDate().currentDate}'
-      <===========   ${name}   ======>`)
-      );
-    })
-    .catch((err) => {
-      console.error(error("Compression failed:", err));
-    });
-}
-
-// 递归添加文件和子文件夹
-function addFilesToZip(zip, folderPath: string) {
-  const files = fs.readdirSync(folderPath);
-  for (const file of files) {
-    const filePath = `${folderPath}/${file}`;
-    if (fs.statSync(filePath).isDirectory()) {
-      const subFolder = zip.folder(file);
-      addFilesToZip(subFolder, filePath); // 递归处理子文件夹
-    } else {
-      const content = fs.readFileSync(filePath);
-      zip.file(file, content);
-    }
-  }
-}
