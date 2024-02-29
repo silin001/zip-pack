@@ -17,7 +17,7 @@
     "lib:publish": "cd ./lib && npm publish && cd ../ && pnpm setnpmaly",
     "lib:publish2": "cd ./lib && npm login && npm publish && cd ../ && pnpm setnpmaly",
     "lib:publish3": "cd ./lib && npm login && npm publish",
-    "build": "pnpm set:npmsource && rollup -c rollup.config.js && pnpm build:cp",
+    "build": "rollup -c rollup.config.js && pnpm set:npmsource && pnpm build:cp",
     "build:cp": "node ./script/rollup-build.js && pnpm build:publish",
     "build:publish": "cd ./zip-pack-npm && npm publish && cd ../ && pnpm setnpmaly",
     "getnpm": "npm config get registry",

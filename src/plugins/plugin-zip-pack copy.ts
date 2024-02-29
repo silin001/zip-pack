@@ -1,10 +1,10 @@
 /*
  * @Date: 2024-02-23 16:20:49
- * @LastEditTime: 2024-02-28 13:18:08
+ * @LastEditTime: 2024-02-29 11:20:19
  * @Description: plugin-zip-pack 插件入口文件
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugin-zip-pack.ts
+ * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\plugin-zip-pack copy.ts
  */
-import { DirToZipFunType, VitePluginZipPackType } from "./type/index";
+import { DirToZipFunType, VitePluginZipPackType } from "../type/index";
 
 import {
   sucess,
@@ -13,10 +13,9 @@ import {
   setOutputDir,
   isPathExists,
   dirToZipHandle,
-} from "./utils/index";
+} from "../utils/index";
 
-import { name, version } from '../package.json'
-
+import { name, version } from '../../zip-pack-npm/package.json'
 
 
 /** 支持vite打包指定文件夹为.zip包的插件函数 */

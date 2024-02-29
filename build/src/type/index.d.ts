@@ -6,7 +6,7 @@ export type VitePluginZipPackType = {
 };
 /** 打包指定文件夹为.zip参数字段类型 */
 export type DirToZipFunType = {
-    enable?: boolean;
     optZipName: string;
+    enable?: boolean;
     targetDir?: string;
 };

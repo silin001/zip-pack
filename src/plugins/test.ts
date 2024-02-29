@@ -1,14 +1,14 @@
 /*
  * @Date: 2024-02-25 18:39:32
- * @LastEditTime: 2024-02-28 13:19:25
+ * @LastEditTime: 2024-02-29 13:17:14
  * @Description: 测试文件
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\test.ts
+ * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\test.ts
  */
 
 
 
-export const test = "ts版本测试";
-
+export const test = "=======> typescript  plugin-zip-pack...";
+console.log(test);
 export const testFun = (num: number = 100) => {
   return num + 1;
 };

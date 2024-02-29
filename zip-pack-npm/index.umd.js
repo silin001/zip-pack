@@ -16284,7 +16284,7 @@
     var chalk$1 = /*@__PURE__*/getDefaultExportFromCjs(source);
 
     var name = "plugin-zip-pack";
-    var version = "1.0.17";
+    var version = "1.0.16";
 
     /*
      * @Date: 2024-02-23 15:32:16

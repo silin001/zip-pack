@@ -9,7 +9,8 @@
     // "module": "es2015",
     "declaration": true, // 根据ts文件自动生成.d.ts声明文件和js文件
     "emitDeclarationOnly": true, // 只输出.d.ts声明文件，不生成js文件
-    "rootDir": "src", // 解决
+    // "rootDir": "src", // 解决
+    "rootDir": "./",
     "outDir": "./build", // 输出目录
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -22,7 +23,7 @@
     "resolveJsonModule": true
   },
   // "include": ["src/*.ts"],
-  // "exclude": ["node_modules", "lib"]
+  // "exclude": [ "examples", "script","node_modules", "zip-pack-npm", "v1","lib"]
   // 只编译 src 目录下的文件
   // "include": ["src"],
   // "exclude": ["test"]

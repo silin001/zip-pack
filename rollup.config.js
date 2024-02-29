@@ -6,7 +6,7 @@ import typescript from '@rollup/plugin-typescript';
 // rollup 并不知道如何寻找路径以外的依赖如 node_module 中的依赖。 所以需要借助 @rollup/plugin-node-resolve 插件帮助程序可以在项目依赖中找到对应文件。
 import nodeResolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json'
-// import { dts } from "rollup-plugin-dts";
+import { dts } from "rollup-plugin-dts";
 import pkg from './package.json'
 
 // 一段自定义的内容，以下内容会添加到打包结果中
@@ -74,10 +74,10 @@ export default [
     ]
   },
   // 生成.d.ts文件
-  // {
-  //   input: "./src/index.ts",
-  //   // input: "build/index.d.ts",
-  //   output: [{ file: "build/index.d.ts", format: "es" }],
-  //   plugins: [dts()],
-  // },
+  {
+    input: "./src/index.ts",
+    // input: "build/index.d.ts",
+    output: [{ file: "build/index.d.ts", format: "es" }],
+    plugins: [dts()],
+  },
 ]
