@@ -1,7 +1,7 @@
 
 # 插件简介
 
-`plugin-zip-pack`  源码使用ts编写，用于项目 webpack、vite build 结束后压缩打包指定目录资源为.zip 包
+`plugin-zip-pack` 源码使用ts编写（1.0.17版本前js），用于项目 webpack、vite build 结束后压缩打包指定目录资源为.zip 包
 
 
 # 安装
@@ -23,14 +23,14 @@
 ```
 
 
-# 使用
+# 使用（1.0.17版本）
 
 - vite
 
 ```javascript
 // vite.config.js
 const { pluginZipPackVite } = require("plugin-zip-pack");
-// import { pluginZipPackVite } from 'test-plugin-zip-pack'
+// import { pluginZipPackVite } from 'plugin-zip-pack'
 export default defineConfig({
   plugins: [
     pluginZipPackVite({
@@ -50,6 +50,42 @@ module.exports = {
     configureWebpack: {
         plugins: [
             new PluginZipPackWebpack({
+                optZipName: 'xxxpc端'
+            })
+        ]
+    }
+};
+```
+
+
+# 使用（1.0.17版本前）
+
+- vite
+
+```javascript
+// vite.config.js
+const { vitePluginZipPack } = require("plugin-zip-pack");
+export default defineConfig({
+  plugins: [
+    vitePluginZipPack({
+      optZipName: '测试包',
+      targetDir: 'public',
+      enable: false
+    }),
+  ],
+});
+```
+
+- webpack
+
+```javascript
+// webpack.config.js
+const { WebpackPluginZipPack } = require("plugin-zip-pack");
+
+module.exports = {
+    configureWebpack: {
+        plugins: [
+            new WebpackPluginZipPack({
                 optZipName: 'xxxpc端'
             })
         ]

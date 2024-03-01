@@ -1,7 +1,7 @@
 
 /*
  * @Date: 2024-02-23 15:32:16
- * @LastEditTime: 2024-02-29 13:15:10
+ * @LastEditTime: 2024-03-01 10:57:07
  * @Description: 一些公用方法
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\index.ts
  */
@@ -121,6 +121,7 @@ function addFilesToZip(jszip, folderPath: string) {
 
 
 import { name, version } from "../../zip-pack-npm/package.json";
+console.log('🚀🚀 ~ version:', version)
 
 /**
  * @description: 将指定文件夹打包为.zip
