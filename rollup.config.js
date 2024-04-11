@@ -2,7 +2,6 @@
 import commonjs from '@rollup/plugin-commonjs'; // 将 common js 模块转成es6
 // 让rollup支持 ts
 import typescript from '@rollup/plugin-typescript';
-// import typescript from 'rollup-plugin-typescript2';
 // rollup 并不知道如何寻找路径以外的依赖如 node_module 中的依赖。 所以需要借助 @rollup/plugin-node-resolve 插件帮助程序可以在项目依赖中找到对应文件。
 import nodeResolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json'
@@ -37,7 +36,6 @@ export default [
           'util': 'ZipPack_util',
           'os': 'ZipPack_os',
           'tty': 'ZipPack_tty',
-
         },
       },
       // {
@@ -61,13 +59,15 @@ export default [
       // 将 CommonJS规范 转换成 ES2015
       json(),
       commonjs(),
-      nodeResolve(),
+      // nodeResolve(),
       // 让rollup 支持打包ts代码,并可以指定ts代码打包过程中的相关配置
-      typescript(),
-      // typescript({
-      //   useTsconfigDeclarationDir: true,
-      //   }
-      // })`
+      // typescript()
+      // commonjs({ include: '/node_modules/**', }),
+      nodeResolve({
+        exportConditions: ['node'], // add node option here,
+        preferBuiltins: false,
+      }),
+      typescript({ exclude: 'node_modules' }),
     ],
     ignore: [
       "node_modules/**" // 忽略目录
