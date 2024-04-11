@@ -19,11 +19,6 @@ declare function getFileByfileName(fileName?: string): {
 };
 /** 递归添加文件和子文件夹 */
 declare function addFilesToZip(jszip: any, folderPath: string): void;
-/** 虾推啥服务
- *  get请求地址：'https://wx.xtuis.cn/您的token.send?text=黄金大涨&desp=黄金大涨100元'
- *
- */
-export declare function xtsMsgPushWeChat(content: any, titleType?: number, token?: string): Promise<void>;
 /**
  * @description: 将指定文件夹打包为.zip
  * @param {*} optZipName 打包后文件夹名称 xxx

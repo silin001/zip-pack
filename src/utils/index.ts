@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-02-23 15:32:16
- * @LastEditTime: 2024-04-11 17:23:15
+ * @LastEditTime: 2024-04-11 17:38:20
  * @Description: 一些公用方法
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\index.ts
  */
@@ -21,7 +21,7 @@ const error = chalk.red;
 const sucess = chalk.green;
 
 import { DirToZipFunType, VitePluginZipPackType } from "../type/index";
-import { zipPackLogs } from "../utils/log";
+
 /*
  获取（以当前文件路径util位置）的项目根目录路径
  __dirname 是当前文件夹路径 d:\web_si\my_webDemo\my-projectFrame\zip-pack\src\util
@@ -110,32 +110,12 @@ function addFilesToZip(jszip, folderPath: string) {
   }
 }
 
-import { httpGet } from "../http/index";
 import { name, version } from "../../zip-pack-npm/package.json";
 console.log("🚀🚀 ~ version:", version);
 const pluginNameVersion = { name, version}
 
-/** 虾推啥服务
- *  get请求地址：'https://wx.xtuis.cn/您的token.send?text=黄金大涨&desp=黄金大涨100元'
- *
- */
-export async function xtsMsgPushWeChat(
-  content,
-  titleType = 1,
-  token = "9O547m1wt4SsX2F19yHhVlxnH",
-) {
-  const api = `http://wx.xtuis.cn/${token}.send`; // 完整服务接口
-  const typeObj = {
-    1: "【前端项目打包-成功】结果通知！",
-    2: "【前端项目打包-失败】结果通知！",
-  };
-  const title = typeObj[titleType];
-  const fullUrl = `${api}?text=${title}&desp=${content}`; // 拼接对应get请求参数
-  const res = (await httpGet(fullUrl)) as Buffer; // 结果肯定是buffer类型数据 所以用as 断言一下
-  // 这里接口请求到的是 buffer类型数据，方便查看需要转换一下
-  const strData = res.toString()
-  console.log("消息推送接口调用结果：", strData);
-}
+import { xtsMsgPushWeChat, zipPackLogs } from "../utils/msgPush";
+
 
 /**
  * @description: 将指定文件夹打包为.zip
@@ -158,6 +138,14 @@ function dirToZipHandle(optZipName: string, targetDir: string) {
       fs.writeFileSync(outputFilePath, content);
       console.log(sucess(zipPackLogs(pluginNameVersion)));
       // TODO 开启 微信消息推送提醒
+      const info = {
+        projectName: optZipName, // 打包文件名称（项目名称）
+        ...pluginNameVersion,
+        targetDir,
+        outputFilePath,
+        doneTime: getNowDate().distDate,
+      };
+      xtsMsgPushWeChat(zipPackLogs(info, 2));
     })
     .catch((err) => {
       console.error(error("Compression failed:", err));

@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-02-25 18:39:32
- * @LastEditTime: 2024-04-11 17:21:13
+ * @LastEditTime: 2024-04-11 17:43:00
  * @Description: 测试文件
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\test.ts
  */
@@ -8,11 +8,10 @@
 export const test = "=======>12  typescript  plugin-zip-pack...";
 // console.log(test);
 
-import { xtsMsgPushWeChat } from "../utils/index";
-import { zipPackLogs } from "../utils/log";
+import { xtsMsgPushWeChat, zipPackLogs } from "../utils/msgPush";
 
-
-xtsMsgPushWeChat(zipPackLogs({}));
+// 微信推送测试
+xtsMsgPushWeChat(zipPackLogs({ projectName: '测试一下'}, 3));
 
 export const testFun = (num: number = 100) => {
   return num + 1;
