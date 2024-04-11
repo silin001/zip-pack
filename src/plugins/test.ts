@@ -1,14 +1,19 @@
 /*
  * @Date: 2024-02-25 18:39:32
- * @LastEditTime: 2024-03-01 15:38:59
+ * @LastEditTime: 2024-04-11 17:21:13
  * @Description: 测试文件
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\test.ts
  */
 
+export const test = "=======>12  typescript  plugin-zip-pack...";
+// console.log(test);
+
+import { xtsMsgPushWeChat } from "../utils/index";
+import { zipPackLogs } from "../utils/log";
 
 
-export const test = "=======> typescript  plugin-zip-pack...";
-console.log(test);
+xtsMsgPushWeChat(zipPackLogs({}));
+
 export const testFun = (num: number = 100) => {
   return num + 1;
 };

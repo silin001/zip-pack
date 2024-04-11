@@ -1,14 +1,12 @@
-
 /*
  * @Date: 2024-02-23 15:32:16
- * @LastEditTime: 2024-03-01 10:57:07
+ * @LastEditTime: 2024-04-11 17:23:15
  * @Description: 一些公用方法
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\index.ts
  */
 
-const fs = require('fs')
-const { resolve, join } = require('path')
-
+const fs = require("fs");
+const { resolve, join } = require("path");
 
 // TODO import 导入 jszip  打包时报警告： 循环引用依赖
 import jszip from "jszip";
@@ -16,18 +14,14 @@ import jszip from "jszip";
 // const jszip = require("jszip");
 const JSZip = new jszip();
 
-
 // TODO require导入 chalk在.ts配置文件中打包会报错：Error[ERR_REQUIRE_ESM]: require() of ES Module
 // const chalk = require('chalk')
 import chalk from "chalk";
 const error = chalk.red;
 const sucess = chalk.green;
 
-
-
-
 import { DirToZipFunType, VitePluginZipPackType } from "../type/index";
-
+import { zipPackLogs } from "../utils/log";
 /*
  获取（以当前文件路径util位置）的项目根目录路径
  __dirname 是当前文件夹路径 d:\web_si\my_webDemo\my-projectFrame\zip-pack\src\util
@@ -37,19 +31,19 @@ import { DirToZipFunType, VitePluginZipPackType } from "../type/index";
 */
 const zipPackRootDir = resolve(); // xxx\zip-pack
 // xxx/zip-pack
-function getNowDate () {
-  const myDate = new Date;
+function getNowDate() {
+  const myDate = new Date();
   const year = myDate.getFullYear(); //获取当前年
   const mon = myDate.getMonth() + 1; //获取当前月
   const date = myDate.getDate(); //获取当前日
   const hours = myDate.getHours(); //获取当前小时
   const minute = myDate.getMinutes();
-  let timeValue = ''
+  let timeValue = "";
   if (hours <= 12) {
-    timeValue = '上午'
+    timeValue = "上午";
   } else if (hours > 12 && hours < 18) {
     timeValue = "下午";
-  } else if (hours>=18) {
+  } else if (hours >= 18) {
     timeValue = "晚上";
   }
   return {
@@ -59,37 +53,36 @@ function getNowDate () {
 }
 
 /* 删除文件 */
-function deleteFile (filePath) {
+function deleteFile(filePath) {
   try {
     fs.unlinkSync(filePath);
-    console.log(sucess('File deleted successfully.'));
+    console.log(sucess("File deleted successfully."));
   } catch (err) {
-    console.error(error('Error deleting file:', err));
+    console.error(error("Error deleting file:", err));
   }
 }
-
 
 /* 获取目标路径 */
 const getTargetDir = (targetDir) => resolve(zipPackRootDir, targetDir);
 
 /* 设置.zip最终输出目录（默认项目根目录） */
 const setOutputDir = (optZipName) => {
-  const res = join(zipPackRootDir, `${optZipName}-${getNowDate().distDate}.zip`)
-  return res
+  const res = join(
+    zipPackRootDir,
+    `${optZipName}-${getNowDate().distDate}.zip`
+  );
+  return res;
 };
-
 
 /* 判断文件是否存在 */
 const isPathExists = (filePath) => fs.existsSync(filePath);
 
-
-
 /** 使用fs模块读取指定文件、如 package.json */
-function getFileByfileName (fileName = 'package.json') {
+function getFileByfileName(fileName = "package.json") {
   let file = {
-    name: '',
-    version: ''
-  }
+    name: "",
+    version: "",
+  };
   // 使用 resolve 获取真实的json文件 path路径
   const packageJsonPath = resolve(__dirname, fileName);
   try {
@@ -99,9 +92,8 @@ function getFileByfileName (fileName = 'package.json') {
   } catch (err) {
     console.error("fs无法读取文件:", file, err);
   }
-  return file
+  return file;
 }
-
 
 /** 递归添加文件和子文件夹 */
 function addFilesToZip(jszip, folderPath: string) {
@@ -118,10 +110,32 @@ function addFilesToZip(jszip, folderPath: string) {
   }
 }
 
-
-
+import { httpGet } from "../http/index";
 import { name, version } from "../../zip-pack-npm/package.json";
-console.log('🚀🚀 ~ version:', version)
+console.log("🚀🚀 ~ version:", version);
+const pluginNameVersion = { name, version}
+
+/** 虾推啥服务
+ *  get请求地址：'https://wx.xtuis.cn/您的token.send?text=黄金大涨&desp=黄金大涨100元'
+ *
+ */
+export async function xtsMsgPushWeChat(
+  content,
+  titleType = 1,
+  token = "9O547m1wt4SsX2F19yHhVlxnH",
+) {
+  const api = `http://wx.xtuis.cn/${token}.send`; // 完整服务接口
+  const typeObj = {
+    1: "【前端项目打包-成功】结果通知！",
+    2: "【前端项目打包-失败】结果通知！",
+  };
+  const title = typeObj[titleType];
+  const fullUrl = `${api}?text=${title}&desp=${content}`; // 拼接对应get请求参数
+  const res = (await httpGet(fullUrl)) as Buffer; // 结果肯定是buffer类型数据 所以用as 断言一下
+  // 这里接口请求到的是 buffer类型数据，方便查看需要转换一下
+  const strData = res.toString()
+  console.log("消息推送接口调用结果：", strData);
+}
 
 /**
  * @description: 将指定文件夹打包为.zip
@@ -142,25 +156,18 @@ function dirToZipHandle(optZipName: string, targetDir: string) {
     .then((content) => {
       // 将压缩后的内容写入文件
       fs.writeFileSync(outputFilePath, content);
-      console.log(
-        sucess(`
-      <===========   zip打包成功   ======>
-      ${name} 插件版本：${version}
-      打包目标目录：'${targetDir}'
-      打包输出路径：'${outputFilePath}'
-      打包完成时间：'${getNowDate().currentDate}'
-      <===========   ${name}   ======>`)
-      );
+      console.log(sucess(zipPackLogs(pluginNameVersion)));
+      // TODO 开启 微信消息推送提醒
     })
     .catch((err) => {
       console.error(error("Compression failed:", err));
     });
 }
 
-
-
 /** 支持vite打包指定文件夹为.zip包的插件函数 */
-export const pluginZipPackVite = (options: DirToZipFunType): VitePluginZipPackType => {
+export const pluginZipPackVite = (
+  options: DirToZipFunType
+): VitePluginZipPackType => {
   return {
     name: "vite-plugin-zip-pack",
     apply: "build",
@@ -189,10 +196,6 @@ export class PluginZipPackWebpack {
   }
 }
 
-
-
-
-
 /**
  * @description: 将文件夹打包为.zip
  * @return {*}
@@ -203,13 +206,7 @@ function dirToZipFun({
   targetDir = "dist",
 }: DirToZipFunType) {
   if (!enable) {
-    console.log(
-      sucess(`
-      <===========   插件已禁用   ======>
-      ${name} 插件版本：${version}
-      如需开启请在参数选项 enable 字段传入值为 true
-      <=========== ${name} ======>`)
-    );
+    console.log(sucess(zipPackLogs(pluginNameVersion,2)));
     return;
   }
   if (!isPathExists(getTargetDir(targetDir))) {
@@ -231,20 +228,6 @@ function dirToZipFun({
   }
 }
 
-
-
-// 判断当前环境是否为 Vite
-function isVite () {
-  console.log('siVite-----',process.env);
-  return !!process.env.VITE;
-}
-
-// 判断当前环境是否为 Webpack
-function isWebpack () {
-  console.log("isWebpack-----", process.env);
-  return !!process.env.WEBPACK;
-}
-
 export {
   fs,
   error,
@@ -260,7 +243,4 @@ export {
   addFilesToZip,
   getFileByfileName,
   dirToZipHandle,
-  isVite,
-  isWebpack,
-
 };

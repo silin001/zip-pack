@@ -6,7 +6,7 @@
 
 # 安装
 
-`cnpm install plugin-zip-pack -D`
+`pnpm install plugin-zip-pack -D`
 
 `npm install plugin-zip-pack -D`
 

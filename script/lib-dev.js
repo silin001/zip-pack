@@ -1,13 +1,13 @@
 /*
  * @Date: 2024-01-30 10:34:58
- * @LastEditTime: 2024-01-30 16:44:06
+ * @LastEditTime: 2024-04-11 12:43:21
  * @Description:
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\script\lib-dev.js
  */
 const fs = require('fs');
 const { resolve, join } = require('path');
-const { deleteFileOrFolder, publishPackage, copyFilesFun} = require('../src/util/index')
-// import { deleteFileOrFolder, copyFilesFun } from '../src/util/index.ts '
+const { deleteFileOrFolder, publishPackage, copyFilesFun} = require('../src/utils/index')
+// import { deleteFileOrFolder, copyFilesFun } from '../src/utils/index '
 // 最终目录/build
 const tarDir = resolve(__dirname, '../lib')
 // 复制src、index
@@ -44,11 +44,11 @@ npm version minor 次版本号 0.x.0
 
 npm version major 主版本号 x.0.0
 */
-const oredr = {
-  1: 'patch',
-  2: 'minor',
-  3: 'major',
-}
+// const oredr = {
+//   1: 'patch',
+//   2: 'minor',
+//   3: 'major',
+// }
 // console.log(oredr[1])
 // publishPackage(oredr[1], tarDir)
 

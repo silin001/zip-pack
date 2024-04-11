@@ -1,8 +1,7 @@
 declare const fs: any;
 declare const resolve: any, join: any;
-import chalk from "chalk";
-declare const error: chalk.Chalk;
-declare const sucess: chalk.Chalk;
+declare const error: import("chalk").ChalkInstance;
+declare const sucess: import("chalk").ChalkInstance;
 import { DirToZipFunType, VitePluginZipPackType } from "../type/index";
 declare const zipPackRootDir: any;
 declare function getNowDate(): {
@@ -20,6 +19,11 @@ declare function getFileByfileName(fileName?: string): {
 };
 /** 递归添加文件和子文件夹 */
 declare function addFilesToZip(jszip: any, folderPath: string): void;
+/** 虾推啥服务
+ *  get请求地址：'https://wx.xtuis.cn/您的token.send?text=黄金大涨&desp=黄金大涨100元'
+ *
+ */
+export declare function xtsMsgPushWeChat(content: any, titleType?: number, token?: string): Promise<void>;
 /**
  * @description: 将指定文件夹打包为.zip
  * @param {*} optZipName 打包后文件夹名称 xxx
@@ -35,6 +39,4 @@ export declare class PluginZipPackWebpack {
     constructor(options: DirToZipFunType);
     apply(compiler: any): void;
 }
-declare function isVite(): boolean;
-declare function isWebpack(): boolean;
-export { fs, error, sucess, join, resolve, zipPackRootDir, deleteFile, getNowDate, getTargetDir, setOutputDir, isPathExists, addFilesToZip, getFileByfileName, dirToZipHandle, isVite, isWebpack, };
+export { fs, error, sucess, join, resolve, zipPackRootDir, deleteFile, getNowDate, getTargetDir, setOutputDir, isPathExists, addFilesToZip, getFileByfileName, dirToZipHandle, };

@@ -1,4 +1,4 @@
-declare const test = "=======> typescript  plugin-zip-pack...";
+declare const test = "=======>12  typescript  plugin-zip-pack...";
 declare const testFun: (num?: number) => number;
 declare const deepClone: (obj: Object) => object;
 
