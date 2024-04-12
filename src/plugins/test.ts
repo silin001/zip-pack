@@ -1,17 +1,23 @@
 /*
  * @Date: 2024-02-25 18:39:32
- * @LastEditTime: 2024-04-11 17:43:00
+ * @LastEditTime: 2024-04-12 15:18:17
  * @Description: 测试文件
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\test.ts
  */
 
-export const test = "=======>12  typescript  plugin-zip-pack...";
+export const test = "=======>  typescript  plugin-zip-pack...";
 // console.log(test);
 
-import { xtsMsgPushWeChat, zipPackLogs } from "../utils/msgPush";
-
+// import { xtsMsgPushWeChat, zipPackLogs } from "../utils/msgPush";
 // 微信推送测试
-xtsMsgPushWeChat(zipPackLogs({ projectName: '测试一下'}, 3));
+// const obj = {
+//   name: "11",
+//   version: '2',
+//   projectName: "测试一下",
+// };
+
+// xtsMsgPushWeChat(zipPackLogs(obj, 3), "9O547m1wt4SsX2F19yHhVlxnH");
+
 
 export const testFun = (num: number = 100) => {
   return num + 1;

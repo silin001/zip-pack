@@ -1,4 +1,4 @@
-declare const test = "=======>12  typescript  plugin-zip-pack...";
+declare const test = "=======>  typescript  plugin-zip-pack...";
 declare const testFun: (num?: number) => number;
 declare const deepClone: (obj: Object) => object;
 
@@ -8,9 +8,11 @@ type VitePluginZipPackType = {
     apply: "build";
     closeBundle: () => void;
 };
-/** 打包指定文件夹为.zip参数字段类型 */
+/** 打包指定文件夹为.zip 函数参数字段类型 */
 type DirToZipFunType = {
     optZipName: string;
+    isPushVx?: boolean;
+    xtsToken?: string;
     enable?: boolean;
     targetDir?: string;
 };

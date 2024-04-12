@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('stream'), require('events'), require('buffer'), require('util'), require('node:process'), require('node:os'), require('node:tty')) :
     typeof define === 'function' && define.amd ? define(['exports', 'stream', 'events', 'buffer', 'util', 'node:process', 'node:os', 'node:tty'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ZipPack = {}, global.ZipPack_stream, global.ZipPack_events, global.ZipPack_buffer, global.ZipPack_util, global.process$1, global.os, global.tty));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ZipPack = {}, global.ZipPack_stream, global.ZipPack_events, global.ZipPack_buffer, global.ZipPack_util, global.process, global.os, global.tty));
 })(this, (function (exports, require$$0, require$$2, require$$0$1, require$$1, process$1, os, tty) { 'use strict';
 
     function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -15,95 +15,21 @@
     var tty__default = /*#__PURE__*/_interopDefaultLegacy(tty);
 
     /*
-     * @Date: 2024-04-11 09:52:14
-     * @LastEditTime: 2024-04-11 16:49:27
-     * @Description:
-     * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\http\index.ts
-     */
-    const http = require("http");
-    const httpGet = (api) => {
-        return new Promise((resolve, reject) => {
-            http
-                .get(api, (res) => {
-                let bufferData;
-                res.on("data", (chunk) => {
-                    bufferData = chunk;
-                });
-                res.on("end", () => {
-                    resolve(bufferData);
-                });
-            })
-                .on("error", (err) => {
-                console.log("Error: ", err.message);
-                reject(err);
-            });
-        });
-    };
-
-    /*
-     * @Date: 2024-04-11 17:09:22
-     * @LastEditTime: 2024-04-11 17:40:08
-     * @Description:
-     * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\msgPush.ts
-     */
-    /** 虾推啥服务
-     *  get请求地址：'https://wx.xtuis.cn/您的token.send?text=黄金大涨&desp=黄金大涨100元'
-     *
-     */
-    async function xtsMsgPushWeChat(content, titleType = 1, token = "9O547m1wt4SsX2F19yHhVlxnH") {
-        const api = `http://wx.xtuis.cn/${token}.send`; // 完整服务接口
-        const typeObj = {
-            1: "【前端项目打包】结果通知！",
-            2: "【前端项目打包】结果通知！",
-        };
-        const title = typeObj[titleType];
-        const fullUrl = `${api}?text=${title}&desp=${content}`; // 拼接对应get请求参数
-        const res = (await httpGet(fullUrl)); // 结果肯定是buffer类型数据 所以用as 断言一下
-        // 这里接口请求到的是 buffer类型数据，方便查看需要转换一下
-        const strData = res.toString();
-        console.log("消息推送接口调用结果：", strData);
-    }
-    /** 日子打印 */
-    function zipPackLogs(obj, type = 1) {
-        const { projectName, name, version, targetDir, outputFilePath, doneTime } = obj;
-        // 终端打印
-        const cmdMsg = `
-      <===========  zip打包成功 ======>
-      ${name} 插件版本：${version}
-      打包目标目录: ${targetDir}
-      打包输出路径：${outputFilePath}
-      打包完成时间：${doneTime}
-      <===========  ${name}   =======>
-      `;
-        const disable = `
-      <===========   插件已禁用   ======>
-      ${name} 插件版本：${version}
-      如需开启请在参数选项 enable 字段传入值为 true
-      <=========== ${name} ======>`;
-        const wxMsg = `
-      项目名称：<font color="red">${projectName}<font/> <br>
-      插件名称：<div class="title">${name}<div/> <br>
-      插件版本：<div class="title">${version}<div/> <br>
-      打包目标目录: ${targetDir} <br>
-      打包输出路径：${outputFilePath} <br>
-      打包完成时间：${doneTime}`;
-        const logs = {
-            1: cmdMsg,
-            2: disable,
-            3: wxMsg
-        };
-        return logs[type];
-    }
-
-    /*
      * @Date: 2024-02-25 18:39:32
-     * @LastEditTime: 2024-04-11 17:43:00
+     * @LastEditTime: 2024-04-12 15:18:17
      * @Description: 测试文件
      * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\test.ts
      */
-    const test = "=======>12  typescript  plugin-zip-pack...";
+    const test = "=======>  typescript  plugin-zip-pack...";
+    // console.log(test);
+    // import { xtsMsgPushWeChat, zipPackLogs } from "../utils/msgPush";
     // 微信推送测试
-    xtsMsgPushWeChat(zipPackLogs({ projectName: '测试一下' }, 3));
+    // const obj = {
+    //   name: "11",
+    //   version: '2',
+    //   projectName: "测试一下",
+    // };
+    // xtsMsgPushWeChat(zipPackLogs(obj, 3), "9O547m1wt4SsX2F19yHhVlxnH");
     const testFun = (num = 100) => {
         return num + 1;
     };
@@ -14438,6 +14364,41 @@
 
     var jszip = /*@__PURE__*/getDefaultExportFromCjs(lib);
 
+    /*
+     * @Date: 2024-04-12 09:47:36
+     * @LastEditTime: 2024-04-12 12:50:10
+     * @Description: 封装好的一些函数工具
+     * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\tools.ts
+     */
+    const getNowDate = () => {
+        const myDate = new Date();
+        const year = myDate.getFullYear(); //获取当前年
+        const mon = myDate.getMonth() + 1; //获取当前月
+        const date = myDate.getDate(); //获取当前日
+        const hours = myDate.getHours(); //获取当前小时
+        const minute = myDate.getMinutes();
+        let timeValue = "";
+        if (hours <= 12) {
+            timeValue = "上午";
+        }
+        else if (hours > 12 && hours < 18) {
+            timeValue = "下午";
+        }
+        else if (hours >= 18) {
+            timeValue = "晚上";
+        }
+        return {
+            currentDate: `(${year}-${mon}-${date}日${hours}:${minute})`,
+            distDate: `(${year}-${mon}-${date}-${timeValue})`,
+        };
+    };
+    // 辅助函数，将样式对象转换为字符串
+    function getStyleString(styleObj) {
+        return Object.keys(styleObj)
+            .map(key => `${key}:${styleObj[key]}`)
+            .join(';');
+    }
+
     const ANSI_BACKGROUND_OFFSET = 10;
 
     const wrapAnsi16 = (offset = 0) => code => `\u001B[${code + offset}m`;
@@ -15063,20 +15024,14 @@
     const chalk = createChalk();
     createChalk({level: stderrColor ? stderrColor.level : 0});
 
-    var name = "plugin-zip-pack";
-    var version = "1.0.17";
-
     /*
-     * @Date: 2024-02-23 15:32:16
-     * @LastEditTime: 2024-04-11 17:38:20
-     * @Description: 一些公用方法
-     * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\index.ts
+     * @Date: 2024-04-12 09:54:48
+     * @LastEditTime: 2024-04-12 10:08:42
+     * @Description: node模块操作相关方法
+     * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\file.ts
      */
     const fs = require("fs");
     const { resolve, join } = require("path");
-    //  require引入时， 在.js中使用打包报错  Error: Cannot find module 'jszip'
-    // const jszip = require("jszip");
-    const JSZip = new jszip();
     const error = chalk.red;
     const sucess = chalk.green;
     /*
@@ -15087,29 +15042,15 @@
      const __dirname = resolve()
     */
     const zipPackRootDir = resolve(); // xxx\zip-pack
-    // xxx/zip-pack
-    function getNowDate() {
-        const myDate = new Date();
-        const year = myDate.getFullYear(); //获取当前年
-        const mon = myDate.getMonth() + 1; //获取当前月
-        const date = myDate.getDate(); //获取当前日
-        const hours = myDate.getHours(); //获取当前小时
-        const minute = myDate.getMinutes();
-        let timeValue = "";
-        if (hours <= 12) {
-            timeValue = "上午";
-        }
-        else if (hours > 12 && hours < 18) {
-            timeValue = "下午";
-        }
-        else if (hours >= 18) {
-            timeValue = "晚上";
-        }
-        return {
-            currentDate: `(${year}-${mon}-${date}日${hours}:${minute})`,
-            distDate: `(${year}-${mon}-${date}-${timeValue})`,
-        };
-    }
+    /* 设置.zip最终输出目录（默认项目根目录） */
+    const setOutputDir = (optZipName) => {
+        const res = join(zipPackRootDir, `${optZipName}-${getNowDate().distDate}.zip`);
+        return res;
+    };
+    /* 获取目标路径 */
+    const getTargetDir = (targetDir) => resolve(zipPackRootDir, targetDir);
+    /* 判断文件是否存在 */
+    const isPathExists = (filePath) => fs.existsSync(filePath);
     /* 删除文件 */
     function deleteFile(filePath) {
         try {
@@ -15120,15 +15061,6 @@
             console.error(error("Error deleting file:", err));
         }
     }
-    /* 获取目标路径 */
-    const getTargetDir = (targetDir) => resolve(zipPackRootDir, targetDir);
-    /* 设置.zip最终输出目录（默认项目根目录） */
-    const setOutputDir = (optZipName) => {
-        const res = join(zipPackRootDir, `${optZipName}-${getNowDate().distDate}.zip`);
-        return res;
-    };
-    /* 判断文件是否存在 */
-    const isPathExists = (filePath) => fs.existsSync(filePath);
     /** 递归添加文件和子文件夹 */
     function addFilesToZip(jszip, folderPath) {
         const files = fs.readdirSync(folderPath);
@@ -15144,42 +15076,130 @@
             }
         }
     }
+
+    /*
+     * @Date: 2024-04-12 09:31:09
+     * @LastEditTime: 2024-04-12 15:46:16
+     * @Description
+     * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\constant.ts
+     */
+    const pubStyle = {
+        width: "100%",
+        height: "auto",
+        padding: '5px 3px',
+        textAlign: 'left',
+        background: "rgba(235,238,245,1)",
+        border: "3px dashed rgb(103, 194, 58)",
+        borderRadius: "20px",
+        boxShadow: "0 2px 12px 0 rgba(0,0,0,.1)",
+    };
+    const xtsBgStyle = {
+        ...pubStyle,
+    };
+    const xtsBgStyle2 = {
+        ...pubStyle,
+        fontSize: "24px",
+        marginTop: "20px",
+    };
+
+    /*
+     * @Date: 2024-04-11 09:52:14
+     * @LastEditTime: 2024-04-11 16:49:27
+     * @Description:
+     * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\http\index.ts
+     */
+    const http = require("http");
+    const httpGet = (api) => {
+        return new Promise((resolve, reject) => {
+            http
+                .get(api, (res) => {
+                let bufferData;
+                res.on("data", (chunk) => {
+                    bufferData = chunk;
+                });
+                res.on("end", () => {
+                    resolve(bufferData);
+                });
+            })
+                .on("error", (err) => {
+                console.log("Error: ", err.message);
+                reject(err);
+            });
+        });
+    };
+
+    /*
+     * @Date: 2024-04-11 17:09:22
+     * @LastEditTime: 2024-04-12 15:19:01
+     * @Description:
+     * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\msgPush.ts
+     */
+    /** 虾推啥服务推送到微信
+     *  get请求地址：'https://wx.xtuis.cn/您的token.send?text=黄金大涨&desp=黄金大涨100元'
+     *
+     */
+    async function xtsMsgPushWeChat(content, token, titleStr) {
+        const api = `http://wx.xtuis.cn/${token}.send`; // 完整服务接口
+        const title = titleStr || "【前端项目打包】结果通知！";
+        const fullUrl = `${api}?text=${title}&desp=${content}`; // 拼接对应get请求参数
+        const res = (await httpGet(fullUrl)); // 结果肯定是buffer类型数据 所以用as 断言一下
+        // 这里接口请求到的是 buffer类型数据，方便查看需要转换一下
+        const strData = res.toString();
+        console.log("消息推送接口调用结果：", strData);
+    }
+    /** 日志打印 */
+    function zipPackLogs(obj, type = 1) {
+        const { projectName, name, version, targetDir, outputFilePath, doneTime } = obj;
+        // 终端打印
+        const cmdMsg = `
+      <===========  zip打包成功 ======>
+      ${name} 插件版本：${version}
+      打包目标目录: ${targetDir}
+      打包输出路径：${outputFilePath}
+      打包完成时间：${doneTime}
+      <===========  ${name}   =======>
+      `;
+        const disable = `
+      <===========   插件已禁用   ======>
+      ${name} 插件版本：${version}
+      如需开启请在参数选项 enable 字段传入值为 true
+      <=========== ${name} ======>`;
+        const wxMsg = `
+        <div style="${getStyleString(xtsBgStyle)}">
+          <div>当前项目名称: <font color="red">${projectName}</font> </div>
+          <div>插件名称: <font color="red">${name}</font> </div>
+          <div>插件版本: <font color="red">${version}</font> </div>
+          <div>打包输出路径: <font color="red">${outputFilePath}</font> </div>
+          <div>打包目标目录: ${targetDir}</div>
+          <div>打包完成时间: ${doneTime}</div>
+        </div>
+        <div style="${getStyleString(xtsBgStyle2)}">
+          <div>插件地址:  <a href="https://www.npmjs.com/package/plugin-zip-pack">plugin-zip-pack</a>  </div>
+          <div>插件作者:  尖椒土豆sss</div>
+        </div>
+      `;
+        const logs = {
+            1: cmdMsg,
+            2: disable,
+            3: wxMsg,
+        };
+        return logs[type];
+    }
+
+    var name = "plugin-zip-pack";
+    var version = "1.0.17";
+
+    /*
+     * @Date: 2024-02-23 16:20:49
+     * @LastEditTime: 2024-04-12 15:47:39
+     * @Description: plugin-zip-pack 插件实现
+     * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\plugin-zip-pack.ts
+     */
+    //  require引入时， 在.js中使用打包报错  Error: Cannot find module 'jszip'
+    // const jszip = require("jszip");
+    const JSZip = new jszip();
     console.log("🚀🚀 ~ version:", version);
     const pluginNameVersion = { name, version };
-    /**
-     * @description: 将指定文件夹打包为.zip
-     * @param {*} optZipName 打包后文件夹名称 xxx
-     * @param {*} targetDir 需要打包的文件夹 dist
-     * @return {*}
-     */
-    function dirToZipHandle(optZipName, targetDir) {
-        // function dirToZipHandle (optZipName = "dist", targetDir = "dist") {
-        // 获取要打包的目录路径
-        const targetPath = getTargetDir(targetDir);
-        // 设置 .zip包输出到当前项目跟目录
-        const outputFilePath = setOutputDir(optZipName);
-        // 打包zip
-        addFilesToZip(JSZip, targetPath);
-        // 生成zip压缩包内容的Buffer值，专门为Node.js使用
-        JSZip.generateAsync({ type: "nodebuffer" })
-            .then((content) => {
-            // 将压缩后的内容写入文件
-            fs.writeFileSync(outputFilePath, content);
-            console.log(sucess(zipPackLogs(pluginNameVersion)));
-            // TODO 开启 微信消息推送提醒
-            const info = {
-                projectName: optZipName, // 打包文件名称（项目名称）
-                ...pluginNameVersion,
-                targetDir,
-                outputFilePath,
-                doneTime: getNowDate().distDate,
-            };
-            xtsMsgPushWeChat(zipPackLogs(info, 2));
-        })
-            .catch((err) => {
-            console.error(error("Compression failed:", err));
-        });
-    }
     /** 支持vite打包指定文件夹为.zip包的插件函数 */
     const pluginZipPackVite = (options) => {
         return {
@@ -15212,7 +15232,7 @@
      * @description: 将文件夹打包为.zip
      * @return {*}
      */
-    function dirToZipFun({ enable = true, optZipName = "dist", targetDir = "dist", }) {
+    function dirToZipFun({ enable = true, isPushVx = false, xtsToken = '', optZipName = "dist", targetDir = "dist", }) {
         if (!enable) {
             console.log(sucess(zipPackLogs(pluginNameVersion, 2)));
             return;
@@ -15224,15 +15244,52 @@
         // 设置 .zip包输出到当前项目跟目录
         const outputFilePath = setOutputDir(optZipName);
         if (isPathExists(outputFilePath)) {
-            console.log(sucess("先删除已存在的.zip目录-->", outputFilePath));
+            console.log(sucess("先删除已存在的.zip文件-->", outputFilePath));
             deleteFile(outputFilePath);
             setTimeout(() => {
-                dirToZipHandle(optZipName, targetDir);
+                dirToZipHandle({ optZipName, targetDir, isPushVx, xtsToken });
             }, 800);
         }
         else {
-            dirToZipHandle(optZipName, targetDir);
+            dirToZipHandle({ optZipName, targetDir, isPushVx, xtsToken });
         }
+    }
+    /**
+     * @description: 将指定文件夹打包为.zip
+     * @param {*} optZipName 打包后文件夹名称 xxx
+     * @param {*} targetDir 需要打包的文件夹 dist
+     * @return {*}
+     */
+    // function dirToZipHandle(optZipName: string, targetDir: string, isPushVx?: boolean) {
+    function dirToZipHandle({ optZipName, targetDir, isPushVx, xtsToken, }) {
+        // 获取要打包的目录路径
+        const targetPath = getTargetDir(targetDir);
+        // 设置 .zip包输出到当前项目跟目录
+        const outputFilePath = setOutputDir(optZipName);
+        // 打包zip
+        addFilesToZip(JSZip, targetPath);
+        // 生成zip压缩包内容的Buffer值，专门为Node.js使用
+        JSZip.generateAsync({ type: "nodebuffer" })
+            .then((content) => {
+            // 将压缩后的内容写入文件
+            fs.writeFileSync(outputFilePath, content);
+            const logInfo = {
+                projectName: optZipName, // 打包文件名称（项目名称）
+                ...pluginNameVersion,
+                targetDir,
+                outputFilePath,
+                doneTime: getNowDate().distDate,
+            };
+            // node终端打印
+            console.log(sucess(zipPackLogs(logInfo)));
+            // 开启 微信消息推送提醒
+            if (isPushVx && xtsToken) {
+                xtsMsgPushWeChat(zipPackLogs(logInfo, 3), xtsToken);
+            }
+        })
+            .catch((err) => {
+            console.error(error("Compression failed:", err));
+        });
     }
 
     exports.PluginZipPackWebpack = PluginZipPackWebpack;

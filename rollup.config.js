@@ -34,8 +34,11 @@ export default [
           'events': 'ZipPack_events',
           'buffer': 'ZipPack_buffer',
           'util': 'ZipPack_util',
-          'os': 'ZipPack_os',
-          'tty': 'ZipPack_tty',
+          // 'os': 'ZipPack_os',
+          // 'tty': 'ZipPack_tty',
+          'node:process': 'process',
+          'node:os': 'os',
+          'node:tty': 'tty'
         },
       },
       // {
@@ -69,6 +72,7 @@ export default [
       }),
       typescript({ exclude: 'node_modules' }),
     ],
+    external: ['process', 'os', 'tty'],
     ignore: [
       "node_modules/**" // 忽略目录
     ]
