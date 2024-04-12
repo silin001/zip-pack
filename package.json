@@ -19,7 +19,7 @@
     "lib:publish3": "cd ./lib && npm login && npm publish",
     "build": "rollup -c rollup.config.js && pnpm set:npmsource && pnpm build:cp",
     "build:cp": "node ./script/rollup-build.js && pnpm build:publish",
-    "build:publish": "cd ./zip-pack-npm && npm publish && cd ../ && pnpm setnpmaly",
+    "build:publish": "cd ./zip-pack-npm && npm login && npm publish && cd ../ && pnpm setnpmaly",
     "getnpm": "npm config get registry",
     "setnpm": "npm config set registry https://registry.npmjs.org/",
     "setnpmaly": "npm config set registry https://registry.npmmirror.com/"

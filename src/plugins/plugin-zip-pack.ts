@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-02-23 16:20:49
- * @LastEditTime: 2024-04-12 15:47:39
+ * @LastEditTime: 2024-04-12 16:02:47
  * @Description: plugin-zip-pack 插件实现
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\plugin-zip-pack.ts
  */
@@ -31,9 +31,6 @@ import { fs, sucess, error, deleteFile,getTargetDir, setOutputDir, isPathExists,
 import { name, version } from "../../zip-pack-npm/package.json";
 console.log("🚀🚀 ~ version:", version);
 const pluginNameVersion = { name, version };
-
-
-
 
 /** 支持vite打包指定文件夹为.zip包的插件函数 */
 const pluginZipPackVite = (

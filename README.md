@@ -24,6 +24,7 @@
 # 打包相关
 
 ## 本地打包调试
+`pnpm dev`： 本地源码测试
 
 `pnpm dev:test`:  只用于更新本地lib目录（不发布npm包!）用于本地调试，不使用rollup打包（目前该插件实现功能简单，使用rollup打包后体积反而会比源码文件大） 而是使用 lib.js 复制 src、index源码到lib目录下
 
@@ -60,7 +61,9 @@ script目录下的 lib.js 实现是使用node模块复制src、index文件到lib
 可配置打包出支持 esm、cjs、umd。目前直接打包出通用的 umd格式。
 
 
-### 最终发布npm包打包：`pnpm build`
+### 最终发布npm包打包命令：`pnpm build`
+
+需要先切换到根目录然后执行： `pnpm build`
 
 执行命令后执行脚本顺序：
 
@@ -69,8 +72,8 @@ script目录下的 lib.js 实现是使用node模块复制src、index文件到lib
 
 - pnpm build:cp （使用node 执行 ./script/rollup-build.js 脚本，复制build目录的一些产物到 zip-pack-npm目录）
 
-- pnpm build:publish （先cd到 zip-pack-npm 然后在该目录执行 npm publish 发布、然后再cd上级目录 还原设置npm源为淘宝镜像）
+- pnpm build:publish （先cd到 zip-pack-npm 然后在该目录执行 npm login 登录(此时需要查看手机的otp 6位数验证码)、 npm publish 发布、然后再cd上级目录 还原设置npm源为淘宝镜像）
 
-- 发布npm： `pnpm build:publish`
 
+如果发布失败了 记得手动将 `zip-pack-npm`目录下的package.json的版本号退回，因为在打包命令里配置了每次打包版本号+1
 

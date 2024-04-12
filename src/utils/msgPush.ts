@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-04-11 17:09:22
- * @LastEditTime: 2024-04-12 15:19:01
- * @Description:
+ * @LastEditTime: 2024-04-12 15:53:20
+ * @Description: 消息推送
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\msgPush.ts
  */
 

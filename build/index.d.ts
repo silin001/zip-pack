@@ -1,5 +1,4 @@
 declare const test = "=======>  typescript  plugin-zip-pack...";
-declare const testFun: (num?: number) => number;
 declare const deepClone: (obj: Object) => object;
 
 /** vite插件类型 */
@@ -26,4 +25,4 @@ declare class PluginZipPackWebpack {
     apply(compiler: any): void;
 }
 
-export { PluginZipPackWebpack, deepClone, pluginZipPackVite, test, testFun };
+export { PluginZipPackWebpack, deepClone, pluginZipPackVite, test };

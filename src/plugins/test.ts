@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-02-25 18:39:32
- * @LastEditTime: 2024-04-12 15:18:17
+ * @LastEditTime: 2024-04-12 15:52:39
  * @Description: 测试文件
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\test.ts
  */
@@ -16,12 +16,6 @@ export const test = "=======>  typescript  plugin-zip-pack...";
 //   projectName: "测试一下",
 // };
 
-// xtsMsgPushWeChat(zipPackLogs(obj, 3), "9O547m1wt4SsX2F19yHhVlxnH");
-
-
-export const testFun = (num: number = 100) => {
-  return num + 1;
-};
 
 export const deepClone = (obj: Object) => {
   // 不是引用类型或者是null的话直接返回

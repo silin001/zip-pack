@@ -16,7 +16,7 @@
 
     /*
      * @Date: 2024-02-25 18:39:32
-     * @LastEditTime: 2024-04-12 15:18:17
+     * @LastEditTime: 2024-04-12 15:52:39
      * @Description: 测试文件
      * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\test.ts
      */
@@ -29,10 +29,6 @@
     //   version: '2',
     //   projectName: "测试一下",
     // };
-    // xtsMsgPushWeChat(zipPackLogs(obj, 3), "9O547m1wt4SsX2F19yHhVlxnH");
-    const testFun = (num = 100) => {
-        return num + 1;
-    };
     const deepClone = (obj) => {
         // 不是引用类型或者是null的话直接返回
         if (typeof obj !== "object" || typeof obj == null) {
@@ -15130,8 +15126,8 @@
 
     /*
      * @Date: 2024-04-11 17:09:22
-     * @LastEditTime: 2024-04-12 15:19:01
-     * @Description:
+     * @LastEditTime: 2024-04-12 15:53:20
+     * @Description: 消息推送
      * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\msgPush.ts
      */
     /** 虾推啥服务推送到微信
@@ -15187,11 +15183,11 @@
     }
 
     var name = "plugin-zip-pack";
-    var version = "1.0.17";
+    var version = "1.0.18";
 
     /*
      * @Date: 2024-02-23 16:20:49
-     * @LastEditTime: 2024-04-12 15:47:39
+     * @LastEditTime: 2024-04-12 16:02:47
      * @Description: plugin-zip-pack 插件实现
      * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\plugin-zip-pack.ts
      */
@@ -15296,7 +15292,6 @@
     exports.deepClone = deepClone;
     exports.pluginZipPackVite = pluginZipPackVite;
     exports.test = test;
-    exports.testFun = testFun;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
