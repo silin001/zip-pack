@@ -4,6 +4,16 @@
 
 [plugin-zip-pack - npm (npmjs.com)](https://www.npmjs.com/package/plugin-zip-pack)
 
+源码基于 ts编写，最终通过 rollup打包为 umd格式的资源包。
+
+# 技术栈
+
+- typescript
+- rollup
+- jszip
+
+
+
 # npm源注意！
 
 发布时报错：`Public registration is not allowed`
