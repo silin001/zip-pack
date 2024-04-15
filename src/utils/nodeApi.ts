@@ -29,14 +29,18 @@ import { getNowDate } from './tools'
 const zipPackRootDir = resolve(); // xxx\zip-pack
 
 
-/* 设置.zip最终输出目录（默认项目根目录） */
- const setOutputDir = (optZipName:string) => {
-  const res = join(
-    zipPackRootDir,
-    `${optZipName}-${getNowDate().distDate}.zip`
-  );
-  return res;
-};
+/* 设置.zip最终输出目录（默认项目根目录）
+   设置打包名称+打包时间
+*/
+ const setOutputDir = (optZipName: string, isPackagingTime: boolean) => {
+   const res = join(
+     zipPackRootDir,
+     isPackagingTime
+       ? `${optZipName}-${getNowDate().distDate}.zip`
+       : `${optZipName}.zip`
+   );
+   return res;
+ };
 
 /* 获取目标路径 */
  const getTargetDir = (targetDir:string) => resolve(zipPackRootDir, targetDir);

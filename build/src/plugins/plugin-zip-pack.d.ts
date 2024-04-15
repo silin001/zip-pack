@@ -7,4 +7,9 @@ declare class PluginZipPackWebpack {
     constructor(options: DirToZipFunType);
     apply(compiler: any): void;
 }
-export { pluginZipPackVite, PluginZipPackWebpack, };
+/** 支持 rollup 打包指定文件夹为.zip包的插件函数 */
+declare const pluginZipPackRollup: (options: DirToZipFunType) => {
+    name: string;
+    generateBundle(options2: any, bundle: any): void;
+};
+export { pluginZipPackVite, PluginZipPackWebpack, pluginZipPackRollup };

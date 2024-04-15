@@ -15038,9 +15038,13 @@
      const __dirname = resolve()
     */
     const zipPackRootDir = resolve(); // xxx\zip-pack
-    /* 设置.zip最终输出目录（默认项目根目录） */
-    const setOutputDir = (optZipName) => {
-        const res = join(zipPackRootDir, `${optZipName}-${getNowDate().distDate}.zip`);
+    /* 设置.zip最终输出目录（默认项目根目录）
+       设置打包名称+打包时间
+    */
+    const setOutputDir = (optZipName, isPackagingTime) => {
+        const res = join(zipPackRootDir, isPackagingTime
+            ? `${optZipName}-${getNowDate().distDate}.zip`
+            : `${optZipName}.zip`);
         return res;
     };
     /* 获取目标路径 */
@@ -15126,7 +15130,7 @@
 
     /*
      * @Date: 2024-04-11 17:09:22
-     * @LastEditTime: 2024-04-12 15:53:20
+     * @LastEditTime: 2024-04-15 12:51:08
      * @Description: 消息推送
      * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\msgPush.ts
      */
@@ -15187,15 +15191,16 @@
 
     /*
      * @Date: 2024-02-23 16:20:49
-     * @LastEditTime: 2024-04-12 16:02:47
+     * @LastEditTime: 2024-04-15 16:50:19
      * @Description: plugin-zip-pack 插件实现
      * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\plugin-zip-pack.ts
      */
-    //  require引入时， 在.js中使用打包报错  Error: Cannot find module 'jszip'
+    //  require引入时， 在项目.js配置文件中使用打包报错  Error: Cannot find module 'jszip'
     // const jszip = require("jszip");
     const JSZip = new jszip();
     console.log("🚀🚀 ~ version:", version);
     const pluginNameVersion = { name, version };
+    const logStr = 'plugin-zip-pack----->';
     /** 支持vite打包指定文件夹为.zip包的插件函数 */
     const pluginZipPackVite = (options) => {
         return {
@@ -15203,7 +15208,7 @@
             apply: "build",
             closeBundle() {
                 // vite打包结束时的钩子
-                console.log(sucess("Vite build completed!"));
+                console.log(sucess(logStr + "Vite build completed!"));
                 dirToZipFun(options);
             },
         };
@@ -15218,17 +15223,28 @@
             // 判断是否是生产环境
             if (compiler.options.mode === "production") {
                 compiler.hooks.done.tap("WebpackPluginZipPack", () => {
-                    console.log(sucess("Webpack build completed!"));
+                    console.log(sucess(logStr + "Webpack build completed!"));
                     dirToZipFun(this.options);
                 });
             }
         }
     }
+    /** 支持 rollup 打包指定文件夹为.zip包的插件函数 */
+    const pluginZipPackRollup = (options) => {
+        return {
+            name: "rollup-plugin-zip-pack",
+            generateBundle(options2, bundle) {
+                console.log(sucess(logStr + "Rollup build finished!"));
+                dirToZipFun(options);
+            },
+        };
+    };
     /**
      * @description: 将文件夹打包为.zip
+     * 在这里对参数设置一些默认值
      * @return {*}
      */
-    function dirToZipFun({ enable = true, isPushVx = false, xtsToken = '', optZipName = "dist", targetDir = "dist", }) {
+    function dirToZipFun({ enable = true, isPushVx = false, xtsToken = "", optZipName = "dist", targetDir = "dist", isPackagingTime = true }) {
         if (!enable) {
             console.log(sucess(zipPackLogs(pluginNameVersion, 2)));
             return;
@@ -15237,17 +15253,24 @@
             console.log(sucess(getTargetDir(targetDir), "目标路径不存在，请传入存在的指定目录！"));
             return;
         }
+        const params = {
+            optZipName,
+            targetDir,
+            isPushVx,
+            xtsToken,
+            isPackagingTime,
+        };
         // 设置 .zip包输出到当前项目跟目录
-        const outputFilePath = setOutputDir(optZipName);
+        const outputFilePath = setOutputDir(optZipName, isPackagingTime);
         if (isPathExists(outputFilePath)) {
             console.log(sucess("先删除已存在的.zip文件-->", outputFilePath));
             deleteFile(outputFilePath);
             setTimeout(() => {
-                dirToZipHandle({ optZipName, targetDir, isPushVx, xtsToken });
+                dirToZipHandle(params);
             }, 800);
         }
         else {
-            dirToZipHandle({ optZipName, targetDir, isPushVx, xtsToken });
+            dirToZipHandle(params);
         }
     }
     /**
@@ -15257,11 +15280,11 @@
      * @return {*}
      */
     // function dirToZipHandle(optZipName: string, targetDir: string, isPushVx?: boolean) {
-    function dirToZipHandle({ optZipName, targetDir, isPushVx, xtsToken, }) {
+    function dirToZipHandle({ optZipName, targetDir, isPushVx, xtsToken, isPackagingTime }) {
         // 获取要打包的目录路径
         const targetPath = getTargetDir(targetDir);
         // 设置 .zip包输出到当前项目跟目录
-        const outputFilePath = setOutputDir(optZipName);
+        const outputFilePath = setOutputDir(optZipName, isPackagingTime); // 使用断言告诉ts isPackagingTime确定不会是 undefined 而是 boolean值
         // 打包zip
         addFilesToZip(JSZip, targetPath);
         // 生成zip压缩包内容的Buffer值，专门为Node.js使用
@@ -15290,6 +15313,7 @@
 
     exports.PluginZipPackWebpack = PluginZipPackWebpack;
     exports.deepClone = deepClone;
+    exports.pluginZipPackRollup = pluginZipPackRollup;
     exports.pluginZipPackVite = pluginZipPackVite;
     exports.test = test;
 

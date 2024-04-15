@@ -1,12 +1,13 @@
 /*
  * @Date: 2024-04-11 17:09:22
- * @LastEditTime: 2024-04-12 15:53:20
+ * @LastEditTime: 2024-04-15 12:51:08
  * @Description: 消息推送
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\msgPush.ts
  */
 
 import { httpGet } from "../http/index";
-import { getStyleString, xtsBgStyle, xtsBgStyle2} from "../utils/index";
+import { xtsBgStyle, xtsBgStyle2 } from "../utils/constant";
+import { getStyleString } from "../utils/tools";
 
 /** 虾推啥服务推送到微信
  *  get请求地址：'https://wx.xtuis.cn/您的token.send?text=黄金大涨&desp=黄金大涨100元'

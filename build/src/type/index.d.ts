@@ -11,4 +11,5 @@ export type DirToZipFunType = {
     xtsToken?: string;
     enable?: boolean;
     targetDir?: string;
+    isPackagingTime?: boolean;
 };
