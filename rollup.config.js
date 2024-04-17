@@ -3,18 +3,23 @@ import commonjs from '@rollup/plugin-commonjs'; // 将 common js 模块转成es6
 // 让rollup支持 ts
 import typescript from '@rollup/plugin-typescript';
 // rollup 并不知道如何寻找路径以外的依赖如 node_module 中的依赖。 所以需要借助 @rollup/plugin-node-resolve 插件帮助程序可以在项目依赖中找到对应文件。
-import nodeResolve from '@rollup/plugin-node-resolve';
+
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json'
 // 生成.d.ts类型声明文件
 import { dts } from "rollup-plugin-dts";
-import pkg from './package.json'
+// 代码打包混淆
+import { terser } from 'rollup-plugin-terser';
+// import pkg from './package.json'
+// 方式2
+import { readFileSync } from 'fs';
+const pkg = JSON.parse(readFileSync('package.json', { encoding:'utf8' }))
 
 // 一段自定义的内容，以下内容会添加到打包结果中
 const footer = `
 if(typeof window !== 'undefined') {
   window.ZipPack_VERSION_ = '${pkg.version}'
 }`
-
 
 export default [
   {
@@ -35,8 +40,8 @@ export default [
           'events': 'ZipPack_events',
           'buffer': 'ZipPack_buffer',
           'util': 'ZipPack_util',
-          // 'os': 'ZipPack_os',
-          // 'tty': 'ZipPack_tty',
+          'os': 'ZipPack_os',
+          'tty': 'ZipPack_tty',
           'node:process': 'process',
           'node:os': 'os',
           'node:tty': 'tty'
@@ -72,8 +77,10 @@ export default [
         preferBuiltins: false,
       }),
       typescript({ exclude: 'node_modules' }),
+      terser() // 使用 terser 插件进行代码混淆，最后执行
     ],
-    external: ['process', 'os', 'tty'],
+    // 标记为外部依赖，不要将其打包进最终的输出文件中
+    external: ['node:os', 'node:process', 'node:tty', 'stream', 'buffer', 'events', 'util'],
     ignore: [
       "node_modules/**" // 忽略目录
     ]
@@ -81,7 +88,6 @@ export default [
   // 生成.d.ts文件
   {
     input: "./src/index.ts",
-    // input: "build/index.d.ts",
     output: [{ file: "build/index.d.ts", format: "es" }],
     plugins: [dts()],
   },

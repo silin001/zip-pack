@@ -6,8 +6,10 @@
   "module": "build/index.mjs",
   "browser": "build/index.browser.js",
   "types": "index.d.ts",
+  "type": "module",
   "scripts": {
     "dev": "rollup -c rollup.config.js -w",
+    "dev2": "rollup -c rollup.config.js --bundleConfigAsCjs -w",
     "dev:test": "node ./script/lib-dev.js",
     "dev:build": "rollup -c rollup.config.js -w",
     "dev:build-2": "npm run build:types && rollup -c rollup.config.js -w",
@@ -42,8 +44,9 @@
     "@rollup/plugin-node-resolve": "13.3.0",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.11.21",
-    "rollup": "2.78.0",
+    "rollup": "4.14.3",
     "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   },
