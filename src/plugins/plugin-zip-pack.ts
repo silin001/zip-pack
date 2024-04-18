@@ -19,18 +19,16 @@
 // };
 
 
-// TODO import 导入 jszip rollup 打包报警告： 循环引用依赖问题，呆解决
-import jszip from "jszip";
 //  require引入时， 在项目.js配置文件中使用打包报错  Error: Cannot find module 'jszip'
-// const jszip = require("jszip");
+import jszip from "jszip";
 const JSZip = new jszip();
 
 import { DirToZipFunType, VitePluginZipPackType } from "../type/index";
 import { getNowDate, xtsMsgPushWeChat, zipPackLogs } from "../utils/index";
 import { fs, sucess, error, deleteFile,getTargetDir, setOutputDir, isPathExists, addFilesToZip,} from "../utils/index";
 import { name, version } from "../../zip-pack-npm/package.json";
-console.log("🚀🚀 ~ version:", version);
 const pluginNameVersion = { name, version };
+console.log('🚀🚀 ~ version:', version)
 
 const logStr =  'plugin-zip-pack----->'
 /** 支持vite打包指定文件夹为.zip包的插件函数 */

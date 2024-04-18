@@ -1,8 +1,5 @@
 lockfileVersion: 5.4
 
-overrides:
-  rollup-plugin-dts: ^6.1.0
-
 specifiers:
   '@rollup/plugin-commonjs': ^25.0.7
   '@rollup/plugin-json': ^6.1.0

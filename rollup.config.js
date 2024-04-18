@@ -2,7 +2,9 @@
 import commonjs from '@rollup/plugin-commonjs'; // 将 common js 模块转成es6
 // 让rollup支持 ts
 import typescript from '@rollup/plugin-typescript';
-// rollup 并不知道如何寻找路径以外的依赖如 node_module 中的依赖。 所以需要借助 @rollup/plugin-node-resolve 插件帮助程序可以在项目依赖中找到对应文件。
+// rollup 并不知道如何寻找路径以外的依赖如 node_module 中的依赖。
+// 所以需要借助 @rollup/plugin-node-resolve 插件帮助程序可以在项目依赖中找到对应文件
+
 
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json'
@@ -35,13 +37,13 @@ export default [
         // sourcemap: true,
         globals: {
           // 你的模块名: 全局变量名
-          'fs': 'ZipPack_fs',
+          // 'fs': 'ZipPack_fs',
           'stream': 'ZipPack_stream',
           'events': 'ZipPack_events',
           'buffer': 'ZipPack_buffer',
           'util': 'ZipPack_util',
-          'os': 'ZipPack_os',
-          'tty': 'ZipPack_tty',
+          // 'os': 'ZipPack_os',
+          // 'tty': 'ZipPack_tty',
           'node:process': 'process',
           'node:os': 'os',
           'node:tty': 'tty'
@@ -65,18 +67,16 @@ export default [
       // },
     ],
     plugins: [
-      // 将 CommonJS规范 转换成 ES2015
       json(),
       commonjs(),
-      // nodeResolve(),
       // 让rollup 支持打包ts代码,并可以指定ts代码打包过程中的相关配置
-      // typescript()
-      // commonjs({ include: '/node_modules/**', }),
-      nodeResolve({
-        exportConditions: ['node'], // add node option here,
-        preferBuiltins: false,
-      }),
       typescript({ exclude: 'node_modules' }),
+      nodeResolve({
+        // 指定是否优先使用 Node.js 内置模块。如果设置为 true，当导入的模块与 Node.js 内置模块同名时，会优先使用内置模块。
+        preferBuiltins: false,
+        // 用于指定是否将导入的模块路径映射到浏览器版本的路径,当设置为 `true` 时，该插件会尝试将模块路径转换为适用于浏览器环境的路径。
+        browser: true,
+      }),
       terser() // 使用 terser 插件进行代码混淆，最后执行
     ],
     // 标记为外部依赖，不要将其打包进最终的输出文件中
