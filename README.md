@@ -68,7 +68,12 @@ script目录下的 lib.js 实现是使用node模块复制src、index文件到lib
 
 ## 打包方式2（使用rollup打包）
 
-可配置打包出支持 esm、cjs、umd。目前直接打包出通用的 umd格式。
+可配置打包出支持 esm、cjs、umd，目前直接打包出通用的 umd 格式。
+
+
+本地调试： `pnpm dev` 因为参数添加了 `--bundleConfigAsCjs` 在rollup3.x版本支持esm语法
+
+`pnpm dev2` 时不添加 `--bundleConfigAsCjs`参数时，需要在 package.json中 添加： `"type": "module",`来支持源码esm语法
 
 
 ### 最终发布npm包打包命令：`pnpm build`
@@ -84,6 +89,10 @@ script目录下的 lib.js 实现是使用node模块复制src、index文件到lib
 
 - pnpm build:publish （先cd到 zip-pack-npm 然后在该目录执行 npm login 登录(此时需要查看手机的otp 6位数验证码)、 npm publish 发布、然后再cd上级目录 还原设置npm源为淘宝镜像）
 
+### 发布失败情况
+- 如果发布失败了，记得手动将 `zip-pack-npm` 目录下的package.json的版本号退回，因为在打包命令里配置了每次打包版本号+1
 
-如果发布失败了 记得手动将 `zip-pack-npm`目录下的package.json的版本号退回，因为在打包命令里配置了每次打包版本号+1
+- 发布失败时如果已经执行设置了npm源为npm镜像，全局的 npm镜像也就变了，需要手动设置成淘宝源（否则本地所有项目 `pnpm install` 安装新依赖时会报错）
+
+因为本地安装了 nrm来管理npm源，所以操作很简单， 只需要先使用 `nrm ls` 查看当前源，然后通过 `nrm use xxx` 设置源就好了
 

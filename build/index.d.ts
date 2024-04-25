@@ -1,4 +1,4 @@
-declare const test = "=======>  typescript  plugin-zip-pack...";
+declare const test = "=======> 666 typescript  plugin-zip-pack...";
 declare const deepClone: (obj: Object) => object;
 
 /** vite插件类型 */

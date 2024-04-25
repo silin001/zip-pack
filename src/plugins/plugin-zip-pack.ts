@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-02-23 16:20:49
- * @LastEditTime: 2024-04-15 16:50:19
+ * @LastEditTime: 2024-04-25 09:22:09
  * @Description: plugin-zip-pack 插件实现
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\plugin-zip-pack.ts
  */
@@ -20,7 +20,8 @@
 
 
 //  require引入时， 在项目.js配置文件中使用打包报错  Error: Cannot find module 'jszip'
-import jszip from "jszip";
+// import jszip from "jszip";
+const jszip = require('jszip')
 const JSZip = new jszip();
 
 import { DirToZipFunType, VitePluginZipPackType } from "../type/index";
@@ -28,9 +29,10 @@ import { getNowDate, xtsMsgPushWeChat, zipPackLogs } from "../utils/index";
 import { fs, sucess, error, deleteFile,getTargetDir, setOutputDir, isPathExists, addFilesToZip,} from "../utils/index";
 import { name, version } from "../../zip-pack-npm/package.json";
 const pluginNameVersion = { name, version };
-console.log('🚀🚀 ~ version:', version)
 
-const logStr =  'plugin-zip-pack----->'
+const logStr =  'plugin-zip-pack----->   '
+
+console.log(logStr + version);
 /** 支持vite打包指定文件夹为.zip包的插件函数 */
 const pluginZipPackVite = (
   options: DirToZipFunType
@@ -168,7 +170,7 @@ function dirToZipHandle({
 }
 
 
-// 最终导出支持 vite、webpack的2个主函数
+// 最终导出支持 vite、webpack、rollup的 个主函数
 export { pluginZipPackVite, PluginZipPackWebpack, pluginZipPackRollup };
 
 

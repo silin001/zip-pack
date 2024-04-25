@@ -1,9 +1,15 @@
 /*
  * @Date: 2024-02-23 15:32:16
- * @LastEditTime: 2024-02-27 17:24:24
+ * @LastEditTime: 2024-04-24 16:59:59
  * @Description: 打包时 rollup-buld使用的方法
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\utils\build.js
+ * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\script\build-utils.js
  */
+
+
+// import fs from 'fs';
+// import { resolve, join, basename } from 'path';
+// import { exec } from 'child_process'
+
 const fs = require('fs');
 const { exec } = require('child_process');
 const { resolve, join, basename } = require('path')

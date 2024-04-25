@@ -1,11 +1,11 @@
 /*
  * @Date: 2024-02-25 18:39:32
- * @LastEditTime: 2024-04-12 15:52:39
+ * @LastEditTime: 2024-04-25 09:22:41
  * @Description: 测试文件
  * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\test.ts
  */
 
-export const test = "=======>  typescript  plugin-zip-pack...";
+export const test = "=======> 666 typescript  plugin-zip-pack...";
 // console.log(test);
 
 // import { xtsMsgPushWeChat, zipPackLogs } from "../utils/msgPush";

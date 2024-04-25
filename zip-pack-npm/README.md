@@ -1,7 +1,7 @@
 
 # 插件简介
 
-`plugin-zip-pack` 源码使用ts编写（1.0.17版本前js），用于项目 webpack、vite build 结束后压缩打包指定目录资源为.zip 包。
+`plugin-zip-pack` 源码使用ts编写（1.0.17版本前js），用于项目 webpack、vite、rollup 在build 结束后压缩打包指定目录资源为.zip 包。
 
 - 新增打包结果推送消息到微信（需关注虾推啥公众号、获取token）
 
@@ -14,19 +14,19 @@
 # 参数配置
 
 ```javascript
-
  {
   optZipName: '测试包', // 必传参数，打包名称，
   targetDir: '', // 可选参数，需要打包的目录（必须传入存在的目录），默认 dist
   enable: true, // 可选参数，插件是否开启，默认true开启
+  isPackagingTime: true, // 可选参数，打包文件名是否添加时间，默认 true 开启
   isPushVx: false, // 可选参数，打包完成是否推送消息到微信（需配合 xtsToken使用），默认false
-  xtsToken: '', // 可选参数， 推送微信需要的公众号token
+  xtsToken: '', // 可选参数， 推送消息到微信，需要关注公众号获取token
  },
 
 ```
 
 
-# 使用（1.0.17版本）
+# 使用（1.0.17+ 版本）
 
 - vite
 
@@ -58,6 +58,24 @@ module.exports = {
         ]
     }
 };
+```
+
+
+- rollup
+
+```javascript
+// rollup.config.js
+const { pluginZipPackRollup } = require("plugin-zip-pack");
+export default [
+  {
+    plugins: [
+      pluginZipPackRollup({
+          optZipName: 'dist',
+          isPackagingTime: false
+        })
+    ],
+  }
+ ]
 ```
 
 
