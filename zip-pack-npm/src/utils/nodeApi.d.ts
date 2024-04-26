@@ -3,7 +3,7 @@ declare const resolve: any, join: any;
 declare const error: import("chalk").ChalkInstance;
 declare const sucess: import("chalk").ChalkInstance;
 declare const zipPackRootDir: any;
-declare const setOutputDir: (optZipName: string) => any;
+declare const setOutputDir: (optZipName: string, isPackagingTime: boolean) => any;
 declare const getTargetDir: (targetDir: string) => any;
 declare const isPathExists: (filePath: string) => any;
 declare function deleteFile(filePath: string): void;

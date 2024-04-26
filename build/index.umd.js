@@ -869,7 +869,7 @@
     }
 
     var name = "plugin-zip-pack";
-    var version = "1.0.18";
+    var version = "1.0.20";
 
     /*
      * @Date: 2024-02-23 16:20:49

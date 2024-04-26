@@ -8,7 +8,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json'
 // 生成.d.ts类型声明文件
 import { dts } from "rollup-plugin-dts";
-// 代码打包混淆
+// TODO 代码打包混淆, 打包混淆后， 不能直接 import 解构
 // import terser from '@rollup/plugin-terser';
 // import pkg from './package.json'
 // 方式2
@@ -30,6 +30,7 @@ export default [
       {
         // file: pkg.main, // 打包出口
         file: 'build/index.umd.js', // 打包出口
+        // file: 'build/index.umd.min.js', // 打包出口
         // umd是兼容 cjs/esm/iife/amd/cmd/ 的通用打包格式
         format: 'umd',
         // footer,
