@@ -8,8 +8,8 @@
 
 # 技术栈
 
-- typescript
 - rollup
+- typescript
 - jszip
 
 
@@ -30,20 +30,47 @@
 
 
 
-
 # 打包相关
 
 ## 本地打包调试
-`pnpm dev`： 本地源码测试
+`pnpm dev`： 本地源码测试, 直接打包到 build 文件夹， cd 到该目录使用 yalc 发布在本地进行 npm包调试
 
-`pnpm dev:test`:  只用于更新本地lib目录（不发布npm包!）用于本地调试，不使用rollup打包（目前该插件实现功能简单，使用rollup打包后体积反而会比源码文件大） 而是使用 lib.js 复制 src、index源码到lib目录下
+`pnpm dev:test`:   只用于更新本地lib目录（不发布npm包!）用于本地调试，不使用rollup打包（目前该插件实现功能简单，使用rollup打包后体积反而会比源码文件大） 而是使用 lib.js 复制 src、index源码到lib目录下
 
 
 `dev:build`: 用于本地打包（不发布npm包!），包含ts类型文件，打包完成后进行本地测试
 
 build文件夹下需要package.json文件，不需要打包时的一些依赖，只保留核心依赖即可。
 
-## 打包方式1（不使用rollup，体积小，推荐）
+
+
+## 打包方式2（使用rollup打包-推荐）
+
+可配置打包出支持 esm、cjs、umd。目前直接打包出通用的 umd格式。
+
+
+### 【最终】发布npm包打包命令：`pnpm build`
+
+需要先切换到根目录然后执行： `pnpm build`
+
+执行打包命令后会执行脚本顺序如下：
+
+- set:npmsource （查看当前npm源、设置npm源为npm镜像）
+- rollup -c rollup.config.js （使用rollup打包，因为使用了插件所以 rollup -c时会打包出 ts的类型文件）
+
+- pnpm build:cp （使用node 执行 ./script/rollup-build.js 脚本，复制build目录的一些产物到 zip-pack-npm目录）
+
+- pnpm build:publish （先cd到 zip-pack-npm 然后在该目录执行 npm login 登录(此时需要查看手机的otp 6位数验证码)、 npm publish 发布、然后再cd上级目录 还原设置npm源为淘宝镜像）
+
+
+如果发布失败了 记得手动将 `zip-pack-npm`目录下的package.json的版本号退回，因为在打包命令里配置了每次打包版本号+1
+
+
+
+
+
+
+## 打包方式1（不使用rollup，体积小）
 
 ps：目前该插件实现功能简单，使用rollup打包后体积反而会比源码文件大，所以直接源码上传npm。
 
@@ -63,27 +90,4 @@ ps：目前该插件实现功能简单，使用rollup打包后体积反而会比
 ps: lib目录中 package.json 文件如果后期有依赖更新需要手动更改。
 
 script目录下的 lib.js 实现是使用node模块复制src、index文件到lib目录
-
-
-
-## 打包方式2（使用rollup打包）
-
-可配置打包出支持 esm、cjs、umd。目前直接打包出通用的 umd格式。
-
-
-### 最终发布npm包打包命令：`pnpm build`
-
-需要先切换到根目录然后执行： `pnpm build`
-
-执行命令后执行脚本顺序：
-
-- set:npmsource （查看当前npm源、设置npm源为npm镜像）
-- rollup -c rollup.config.js （使用rollup打包，因为使用了插件所以 rollup -c时会打包出 ts的类型文件）
-
-- pnpm build:cp （使用node 执行 ./script/rollup-build.js 脚本，复制build目录的一些产物到 zip-pack-npm目录）
-
-- pnpm build:publish （先cd到 zip-pack-npm 然后在该目录执行 npm login 登录(此时需要查看手机的otp 6位数验证码)、 npm publish 发布、然后再cd上级目录 还原设置npm源为淘宝镜像）
-
-
-如果发布失败了 记得手动将 `zip-pack-npm`目录下的package.json的版本号退回，因为在打包命令里配置了每次打包版本号+1
 

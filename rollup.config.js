@@ -12,6 +12,8 @@ import json from '@rollup/plugin-json'
 import { dts } from "rollup-plugin-dts";
 // 代码打包混淆
 import { terser } from 'rollup-plugin-terser';
+import alias from '@rollup/plugin-alias';
+
 // import pkg from './package.json'
 // 方式2
 import { readFileSync } from 'fs';
@@ -37,16 +39,16 @@ export default [
         // sourcemap: true,
         globals: {
           // 你的模块名: 全局变量名
-          // 'fs': 'ZipPack_fs',
-          'stream': 'ZipPack_stream',
-          'events': 'ZipPack_events',
-          'buffer': 'ZipPack_buffer',
-          'util': 'ZipPack_util',
-          // 'os': 'ZipPack_os',
-          // 'tty': 'ZipPack_tty',
-          'node:process': 'process',
-          'node:os': 'os',
-          'node:tty': 'tty'
+          stream: 'ZipPack_stream',
+          events: 'ZipPack_events',
+          buffer: 'ZipPack_buffer',
+          util: 'ZipPack_util',
+          process: 'ZipPack_process',
+          os: 'ZipPack_os',
+          tty: 'ZipPack_tty',
+          // 'node:process': 'ZipPack_process',
+          // 'node:os': 'ZipPack_os',
+          // 'node:tty': 'ZipPack_tty',
         },
       },
       // {
@@ -68,27 +70,41 @@ export default [
     ],
     plugins: [
       json(),
-      commonjs(),
+      // 使用 Rollup 打包时重写引用
+      alias({
+        entries: [
+          { find: 'node:process', replacement: 'process' },
+          { find: 'node:os', replacement: 'os' },
+          { find: 'node:tty', replacement: 'tty' },
+        ],
+      }),
+      commonjs({
+        // esmExternals: true,
+        // transformMixedEsModules: true,
+      }),
       // 让rollup 支持打包ts代码,并可以指定ts代码打包过程中的相关配置
       typescript({ exclude: 'node_modules' }),
       nodeResolve({
         // 指定是否优先使用 Node.js 内置模块。如果设置为 true，当导入的模块与 Node.js 内置模块同名时，会优先使用内置模块。
-        preferBuiltins: false,
+        preferBuiltins: true,
         // 用于指定是否将导入的模块路径映射到浏览器版本的路径,当设置为 `true` 时，该插件会尝试将模块路径转换为适用于浏览器环境的路径。
         browser: true,
+        exportConditions: ['node'],
       }),
-      terser() // 使用 terser 插件进行代码混淆，最后执行
+      terser(), // 使用 terser 插件进行代码混淆，最后执行
     ],
     // 标记为外部依赖，不要将其打包进最终的输出文件中
-    external: ['node:os', 'node:process', 'node:tty', 'stream', 'buffer', 'events', 'util'],
+    // external: ['node:os', 'node:process', 'node:tty', 'stream', 'buffer', 'events', 'util'],
+    external: ['process', 'os', 'tty', 'stream', 'buffer', 'events', 'util'],
+
     ignore: [
-      "node_modules/**" // 忽略目录
-    ]
+      'node_modules/**', // 忽略目录
+    ],
   },
   // 生成.d.ts文件
   {
-    input: "./src/index.ts",
-    output: [{ file: "build/index.d.ts", format: "es" }],
+    input: './src/index.ts',
+    output: [{ file: 'build/index.d.ts', format: 'es' }],
     plugins: [dts()],
   },
-]
+];

@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-02-23 16:20:49
- * @LastEditTime: 2024-04-15 16:50:19
+ * @LastEditTime: 2025-04-08
  * @Description: plugin-zip-pack 插件实现
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\plugins\plugin-zip-pack.ts
+ * @FilePath: plugin-zip-pack.ts
  */
 
 // TODO 判断当前环境是 Vite 还是 Webpack
@@ -28,9 +28,9 @@ import { getNowDate, xtsMsgPushWeChat, zipPackLogs } from "../utils/index";
 import { fs, sucess, error, deleteFile,getTargetDir, setOutputDir, isPathExists, addFilesToZip,} from "../utils/index";
 import { name, version } from "../../zip-pack-npm/package.json";
 const pluginNameVersion = { name, version };
-console.log('🚀🚀 ~ version:', version)
 
 const logStr =  'plugin-zip-pack----->'
+console.log(logStr, version)
 /** 支持vite打包指定文件夹为.zip包的插件函数 */
 const pluginZipPackVite = (
   options: DirToZipFunType

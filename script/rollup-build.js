@@ -1,14 +1,26 @@
 /*
  * @Date: 2023-09-22 15:44:59
- * @LastEditTime: 2024-02-29 16:10:14
+ * @LastEditTime: 2025-04-08
  * @Description: rollup打包后最终目录：build
  * 使用node脚本发布npm包
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\script\rollup-build.js
+ * @FilePath: rollup-build.js
  */
 
-const fs = require('fs');
-const { resolve, join } = require('path');
-const { deleteFileOrFolder, publishPackage, copyFilesFun } = require('./build-utils')
+
+// const fs = require('fs');
+// const { resolve, join } = require('path');
+// const { deleteFileOrFolder, publishPackage, copyFilesFun } = require('./build-utils.js')
+
+
+import fs from 'fs';
+import { resolve, join, dirname } from 'path';
+import { deleteFileOrFolder, publishPackage, copyFilesFun } from './build-utils.js'
+
+
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 // 打包路径
 const sourceFilePath = resolve(__dirname, '../build')
@@ -21,7 +33,7 @@ const sourcePathsList = getAllFile()
 function getAllFile () {
   const sourcePaths = []
   fileList.forEach((i) => {
-    sourcePaths.push(sourceFilePath + '\\' + i)
+    sourcePaths.push(sourceFilePath + '/' + i)
   })
   return sourcePaths
 }
@@ -30,6 +42,7 @@ function getAllFile () {
 init(sourcePathsList, tarDir);
 
 function init (sourcePaths, targetDir) {
+  console.log('需要复制的文件路径-->', sourcePaths)
   // 先删除之前 /zip-pack-npm 下的产物（除 README、package）
   fileList.forEach((i) => {
     const str = join(targetDir, i)

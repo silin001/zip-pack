@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@rollup/plugin-alias': ^5.1.1
   '@rollup/plugin-commonjs': ^25.0.7
   '@rollup/plugin-json': ^6.1.0
   '@rollup/plugin-node-resolve': 13.3.0
@@ -19,6 +20,7 @@ dependencies:
   jszip: 3.10.1
 
 devDependencies:
+  '@rollup/plugin-alias': 5.1.1_rollup@4.14.3
   '@rollup/plugin-commonjs': 25.0.7_rollup@4.14.3
   '@rollup/plugin-json': 6.1.0_rollup@4.14.3
   '@rollup/plugin-node-resolve': 13.3.0_rollup@4.14.3
@@ -90,6 +92,18 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
+  /@rollup/plugin-alias/5.1.1_rollup@4.14.3:
+    resolution: {integrity: sha512-PR9zDb+rOzkRb2VD+EuKB7UC41vU5DIwZ5qqCpk0KJudcWAyi8rvYOhS7+L5aZCspw1stTViLgN5v6FF1p5cgQ==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      rollup: 4.14.3
     dev: true
 
   /@rollup/plugin-commonjs/25.0.7_rollup@4.14.3:

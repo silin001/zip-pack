@@ -24,7 +24,8 @@
     "build:publish": "cd ./zip-pack-npm && npm login && npm publish && cd ../ && pnpm setnpmaly",
     "getnpm": "npm config get registry",
     "setnpm": "npm config set registry https://registry.npmjs.org/",
-    "setnpmaly": "npm config set registry https://registry.npmmirror.com/"
+    "setnpmaly": "npm config set registry https://registry.npmmirror.com/",
+    "view": "npm view plugin-zip-pack versions"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
   "author": "sisi",
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "13.3.0",

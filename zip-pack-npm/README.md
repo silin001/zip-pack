@@ -1,9 +1,13 @@
 
 # 插件简介
 
-`plugin-zip-pack` 源码使用ts编写（1.0.17版本前js），用于项目 webpack、vite build 结束后压缩打包指定目录资源为.zip 包。
+`plugin-zip-pack` 源码使用ts编写（1.0.17版本前为 js），用于项目 webpack、vite build 结束后压缩打包指定目录资源为 .zip 包。
 
-- 新增打包结果推送消息到微信（需关注虾推啥公众号、获取token）
+# 更新日志
+
+- 修复低版本node打包报错问题 [25-4-7]
+- 新增打包结果推送消息到微信（需关注虾推啥公众号、获取token）[24-4-26]
+
 
 # 安装
 
@@ -26,18 +30,18 @@
 ```
 
 
-# 使用（1.0.17版本）
+# 推荐使用（1.0.17+ 版本）
 
 - vite
 
 ```javascript
 // vite.config.js
-const { pluginZipPackVite } = require("plugin-zip-pack");
-// import { pluginZipPackVite } from 'plugin-zip-pack'
+import { pluginZipPackVite } from 'plugin-zip-pack'
+// const { pluginZipPackVite } = require("plugin-zip-pack");
 export default defineConfig({
   plugins: [
     pluginZipPackVite({
-      optZipName: '测试包',
+      optZipName: 'xxx测试包',
     }),
   ],
 });
