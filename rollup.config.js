@@ -23,49 +23,45 @@ const pkg = JSON.parse(readFileSync('package.json', { encoding:'utf8' }))
 const footer = `
 if(typeof window !== 'undefined') {
   window.ZipPack_VERSION_ = '${pkg.version}'
-}`
+  console.log('描述:', '${pkg.description}')
+}
+`;
 
 export default [
   {
     input: './src/index.ts', // 打包的入口文件
-    // 同时打包多种规范的产物
     output: [
       {
-        file: pkg.main, // 打包出口
-        // umd是兼容 cjs/esm/iife/amd/cmd/ 的通用打包格式
-        format: 'umd',
+        file: pkg.module, // ESM 格式的打包出口
+        format: 'es', // ES规范(import)
         footer,
-        name: 'ZipPack', // 指定打包后的全局变量名
-        // sourcemap: true,
-        globals: {
-          // 你的模块名: 全局变量名
-          stream: 'ZipPack_stream',
-          events: 'ZipPack_events',
-          buffer: 'ZipPack_buffer',
-          util: 'ZipPack_util',
-          process: 'ZipPack_process',
-          os: 'ZipPack_os',
-          tty: 'ZipPack_tty',
-          // 'node:process': 'ZipPack_process',
-          // 'node:os': 'ZipPack_os',
-          // 'node:tty': 'ZipPack_tty',
-        },
       },
+      {
+        file: pkg.main,
+        format: 'cjs', // CommonJS 规范（require）
+        footer,
+      },
+      //   // 如果你需要支持浏览器环境或通过 <script> 标签引入
       // {
-      //   file: pkg.module,
-      //   format: 'esm', // 规范(import)
+      //   file: pkg.browser, // 打包出口
+      //   // umd是兼容 cjs/esm/iife/amd/cmd/ 的通用打包格式
+      //   format: 'umd',
       //   footer,
-      // },
-      // {
-      // // file: 'build/index.js',
-      //   file: pkg.main,
-      //   format: 'cjs', // CommonJS 规范（require）
-      //   footer,
-      // },
-      // {
-      //   file: pkg.browser,
-      //   format: 'iife', // 适用于浏览器
-      //   footer,
+      //   name: 'ZipPack', // 指定打包后的全局变量名
+      //   // sourcemap: true,
+      //   globals: {
+      //     // 你的模块名: 全局变量名
+      //     stream: 'ZipPack_stream',
+      //     events: 'ZipPack_events',
+      //     buffer: 'ZipPack_buffer',
+      //     util: 'ZipPack_util',
+      //     process: 'ZipPack_process',
+      //     os: 'ZipPack_os',
+      //     tty: 'ZipPack_tty',
+      //     // 'node:process': 'ZipPack_process',
+      //     // 'node:os': 'ZipPack_os',
+      //     // 'node:tty': 'ZipPack_tty',
+      //   },
       // },
     ],
     plugins: [
@@ -96,7 +92,6 @@ export default [
     // 标记为外部依赖，不要将其打包进最终的输出文件中
     // external: ['node:os', 'node:process', 'node:tty', 'stream', 'buffer', 'events', 'util'],
     external: ['process', 'os', 'tty', 'stream', 'buffer', 'events', 'util'],
-
     ignore: [
       'node_modules/**', // 忽略目录
     ],
@@ -104,7 +99,8 @@ export default [
   // 生成.d.ts文件
   {
     input: './src/index.ts',
-    output: [{ file: 'build/index.d.ts', format: 'es' }],
+    // output: [{ file: 'build/index.d.ts', format: 'es' }],
+    output: [{ file: pkg.types, format: 'es' }],
     plugins: [dts()],
   },
 ];

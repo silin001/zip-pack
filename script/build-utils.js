@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-02-23 15:32:16
- * @LastEditTime: 2025-04-07
+ * @LastEditTime: 2025-04-25
  * @Description: 打包时 rollup-buld使用的方法
  * @FilePath: build-utils.js
  */
@@ -23,10 +23,10 @@ function deleteFileOrFolder (fileOrFolderPath) {
         deleteFileOrFolder(itemPath);
       });
       fs.rmdirSync(fileOrFolderPath); // 删除空文件夹
-      console.log(`Deleted folder: ${fileOrFolderPath}`);
+      console.log(`Deleted folder---: ${fileOrFolderPath}`);
     } else { // 如果是文件，则直接删除
       fs.unlinkSync(fileOrFolderPath); // 删除文件
-      console.log(`Deleted file: ${fileOrFolderPath}`);
+      console.log(`Deleted file---: ${fileOrFolderPath}`);
     }
   } else {
     console.log(`File or folder does not exist: ${fileOrFolderPath}`);
@@ -52,11 +52,11 @@ function copyFilesFun (sourcePaths, targetDir) {
         fs.mkdirSync(targetFolderPath); // 创建目标文件夹
         const subSourcePaths = fs.readdirSync(sourceAbsolutePath).map(subPath => join(sourceAbsolutePath, subPath));
         copyFilesFun(subSourcePaths, targetFolderPath); // 递归复制文件夹内的内容
-        console.log(`复制 文件夹: ${folderName}`);
+        console.log(`复制【文件夹】: ${folderName}`);
       }
 
     } else {
-      console.log(`源文件或文件夹不存在： ${sourceAbsolutePath}`
+      console.log(`源文件或文件夹不存在---: ${sourceAbsolutePath}`
       );
       process.exit(1);
     }

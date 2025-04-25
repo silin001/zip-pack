@@ -46,7 +46,7 @@ build文件夹下需要package.json文件，不需要打包时的一些依赖，
 
 ## 打包方式2（使用rollup打包-推荐）
 
-可配置打包出支持 esm、cjs、umd。目前直接打包出通用的 umd格式。
+可配置打包出支持 esm、cjs、umd。目前打包配置出 es、cjs 规范
 
 
 ### 【最终】发布npm包打包命令：`pnpm build`
@@ -90,4 +90,21 @@ ps：目前该插件实现功能简单，使用rollup打包后体积反而会比
 ps: lib目录中 package.json 文件如果后期有依赖更新需要手动更改。
 
 script目录下的 lib.js 实现是使用node模块复制src、index文件到lib目录
+
+
+
+# zip-pack-npm目录说明
+
+zip-pack-npm 目录是最终要发布到 npm官网上的包，该包是使用 rollup 工具打包后生成了 esm、cjs、格式的js压缩文件
+
+
+## 文件注意
+
+- package.json
+
+zip-pack-npm目录必须包含 package.json，该文件 dependencies中依赖后期有新增时，需要手动维护（其实就是要和根目录下的 package.json的dependencies生产依赖保持同步）
+
+- README.md
+
+用于npm包文档
 

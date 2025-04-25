@@ -1,22 +1,9 @@
 /*
  * @Date: 2024-02-23 16:20:49
- * @LastEditTime: 2025-04-08
+ * @LastEditTime: 2025-04-25
  * @Description: plugin-zip-pack 插件实现
  * @FilePath: plugin-zip-pack.ts
  */
-
-// TODO 判断当前环境是 Vite 还是 Webpack
-/**  插件入口函数  */
-// export const pluginZipPack = () => {
-//   // 判断当前环境是 Vite 还是 Webpack
-//   if (isVite()) {
-//     return pluginZipPackVite;
-//   } else if (isWebpack()) {
-//     return PluginZipPackWebpack;
-//   } else {
-//     throw new Error("Unsupported build tool environment[不支持的生成工具环境]");
-//   }
-// };
 
 
 //  require引入时， 在项目.js配置文件中使用打包报错  Error: Cannot find module 'jszip'

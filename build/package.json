@@ -1,8 +1,9 @@
 {
   "name": "test-plugin-zip-pack",
   "version": "1.0.0",
-  "description": "用于本地调试",
-  "main": "index.umd.js",
+  "description": "build 目录用于本地调试",
+  "module": "index.esm.js",
+  "main": "index.cjs.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",

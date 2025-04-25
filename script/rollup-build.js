@@ -1,6 +1,6 @@
 /*
  * @Date: 2023-09-22 15:44:59
- * @LastEditTime: 2025-04-08
+ * @LastEditTime: 2025-04-25
  * @Description: rollup打包后最终目录：build
  * 使用node脚本发布npm包
  * @FilePath: rollup-build.js
@@ -27,7 +27,13 @@ const sourceFilePath = resolve(__dirname, '../build')
 // 最终要发布为npm的目录  /zip-pack-npm
 const tarDir = resolve(__dirname, '../zip-pack-npm')
 // build 文件夹的所有文件
-const fileList = ['src',  'index.umd.js', 'index.d.ts']
+const fileList = [
+  'src',
+  'index.esm.js',
+  'index.cjs.js',
+  // 'index.umd.js',
+  'index.d.ts',
+];
 const sourcePathsList = getAllFile()
 /* 获取所有文件 */
 function getAllFile () {
@@ -42,7 +48,8 @@ function getAllFile () {
 init(sourcePathsList, tarDir);
 
 function init (sourcePaths, targetDir) {
-  console.log('需要复制的文件路径-->', sourcePaths)
+  console.log('需要复制的文件路径-->', sourcePaths);
+
   // 先删除之前 /zip-pack-npm 下的产物（除 README、package）
   fileList.forEach((i) => {
     const str = join(targetDir, i)
