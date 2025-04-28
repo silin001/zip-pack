@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-04-11 17:09:22
- * @LastEditTime: 2024-04-15 12:51:08
+ * @LastEditTime: 2025-04-28
  * @Description: 消息推送
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\msgPush.ts
+ * @FilePath: msgPush.ts
  */
 
 import { httpGet } from "../http/index";
@@ -46,12 +46,12 @@ export function zipPackLogs(obj: LogObject, type: number = 1) {
     obj;
   // 终端打印
   const cmdMsg = `
-      <===========  zip打包成功 ======>
+      <===========  zip打包成功 ========>
       ${name} 插件版本：${version}
       打包目标目录: ${targetDir}
       打包输出路径：${outputFilePath}
       打包完成时间：${doneTime}
-      <===========  ${name}   =======>
+      <===========  ${name} ======>
       `;
   const disable = `
       <===========   插件已禁用   ======>
