@@ -87,7 +87,7 @@ export default [
         browser: true,
         exportConditions: ['node'],
       }),
-      terser(), // 使用 terser 插件进行代码混淆，最后执行
+      // terser(), // 使用 terser 插件进行代码混淆，最后执行
     ],
     // 标记为外部依赖，不要将其打包进最终的输出文件中
     // external: ['node:os', 'node:process', 'node:tty', 'stream', 'buffer', 'events', 'util'],
