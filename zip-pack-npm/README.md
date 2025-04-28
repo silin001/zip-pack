@@ -5,6 +5,7 @@
 
 # 更新日志
 
+- 拦截指定插件控制zip打包执行顺序为最终阶段 [25-4-26]
 - 修改打包输出文件 esm、cjs [25-4-25]
 - 修复低版本node打包报错问题 [25-4-7]
 - 新增打包结果推送消息到微信（需关注虾推啥公众号、获取token）[24-4-26]
@@ -26,6 +27,7 @@
   enable: true, // 可选参数，插件是否开启，默认true开启
   isPushVx: false, // 可选参数，打包完成是否推送消息到微信（需配合 xtsToken使用），默认false
   xtsToken: '', // 可选参数， 推送微信需要的公众号token
+  interceptPluginName: ''; // 可选参数，拦截指定插件，控制zip打包程序执行顺序为最终阶段  默认值  vite-plugin-compression
  },
 
 ```

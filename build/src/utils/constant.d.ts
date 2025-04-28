@@ -1,3 +1,4 @@
+export declare const zipPackLogStr = "plugin-zip-pack----->";
 export declare const xtsBgStyle: {
     width: string;
     height: string;

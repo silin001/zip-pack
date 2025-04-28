@@ -12,4 +12,4 @@ declare const pluginZipPackRollup: (options: DirToZipFunType) => {
     name: string;
     generateBundle(options2: any, bundle: any): void;
 };
-export { pluginZipPackVite, pluginZipPackRollup, PluginZipPackWebpack };
+export { pluginZipPackVite, PluginZipPackWebpack, pluginZipPackRollup };

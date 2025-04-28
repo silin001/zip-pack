@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-04-12 09:47:36
- * @LastEditTime: 2024-04-12 12:50:10
+ * @LastEditTime: 2025-04-28
  * @Description: 封装好的一些函数工具
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\tools.ts
+ * @FilePath: tools.ts
  */
 
 
@@ -35,4 +35,12 @@ export function getStyleString(styleObj) {
     .map(key => `${key}:${styleObj[key]}`)
     .join(';');
 }
+
+
+export function timeOut(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+
+
 

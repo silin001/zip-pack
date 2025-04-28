@@ -1,8 +1,8 @@
 /*
  * @Date: 2024-04-12 09:54:48
- * @LastEditTime: 2024-04-12 10:08:42
+ * @LastEditTime: 2025-04-27
  * @Description: node模块操作相关方法
- * @FilePath: \yike-design-devd:\web_si\my_webDemo\my-projectFrame\zip-pack\src\utils\file.ts
+ * @FilePath: nodeApi.ts
  */
 
 
@@ -55,7 +55,7 @@ const zipPackRootDir = resolve(); // xxx\zip-pack
 function deleteFile(filePath:string) {
   try {
     fs.unlinkSync(filePath);
-    console.log(sucess("File deleted successfully."));
+    // console.log(sucess("File deleted successfully."));
   } catch (err) {
     console.error(error("Error deleting file:", err));
   }
